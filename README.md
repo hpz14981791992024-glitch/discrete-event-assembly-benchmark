@@ -117,8 +117,7 @@ python3 make_release_manifest.py
 ```
 
 `SHA256SUMS` covers the release files, including executable source,
-authoritative results, publication figures, licenses, and release metadata. It
-does not include the locally retained, unpublished manuscript.
+authoritative results, publication figures, licenses, and release metadata. 
 
 ## License
 
