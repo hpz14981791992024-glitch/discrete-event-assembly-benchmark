@@ -1,46 +1,45 @@
 # V-CRISP Synthetic Discrete-Event Assembly Benchmark
 
-简体中文说明：[README.zh-CN.md](README.zh-CN.md)
+[简体中文](README.zh-CN.md)
 
-This repository contains the reproducible artifact for a deliberately limited
-synthetic discrete-event assembly benchmark. It evaluates whether a typed
-candidate-plan interface, pre-dispatch modeled-constraint checking,
-executor-emitted event recording, and verified suffix repair change outcomes
-under declared state transitions and injected errors.
+V-CRISP is a small, reproducible benchmark for studying plan checking and
+recovery in a synthetic assembly workflow. It compares several ways of
+handling an imperfect candidate plan after the modeled environment changes.
+The goal is to make the experimental logic easy to inspect, rerun, and adapt.
 
-It is not a physical robot or factory experiment. It does not use an LLM, VLM,
-ROS, perception, geometric task and motion planning, collision checking, or an
-independently validated safety model. The pre-dispatch checker and dispatch
-guard share the same modeled action semantics, so zero guard rejections is not
-independent safety-validation evidence.
+The benchmark is intentionally narrow. It is a finite-state simulation, not a
+physical robot or factory study. It does not use LLMs, VLMs, ROS, perception,
+geometric motion planning, collision checking, or an independently validated
+safety model. Its results should therefore be read as evidence about the
+declared simulation only.
 
-## Scope and methods
+## What is included
 
-Each matched scenario begins from an independently reset modeled state. The
-five method keys in the CSV files have the following interpretation:
+Each scenario starts from a freshly reset modeled state. A nominal assembly
+recipe is perturbed to create a candidate plan, then evaluated by one of five
+methods:
 
-- `rule_script`: fixed recipe without recovery.
-- `classical_global`: oracle-state symbolic reference that rebuilds a recipe
-  from the full modeled state; it is not a deployable classical planner.
-- `semantic_direct`: perturbed candidate direct dispatch, without schema
-  checking or recovery.
-- `structured_no_verify`: perturbed structured candidate with schema checking
-  and unverified current-state rebuilding, but no process/resource
-  pre-dispatch checker.
-- `vcrisp`: structured candidate, compiler, pre-dispatch checker,
-  executor-emitted event recording, and verified suffix repair.
+- `rule_script`: follows a fixed recipe and does not recover from errors.
+- `classical_global`: rebuilds a recipe from the complete modeled state; this
+  is an oracle-style reference rather than a deployable planner.
+- `semantic_direct`: dispatches the perturbed candidate directly, without
+  schema checks or recovery.
+- `structured_no_verify`: checks the candidate schema and rebuilds from the
+  current modeled state, but does not run process or resource checks before
+  dispatch.
+- `vcrisp`: uses a structured candidate, a compiler, pre-dispatch checks,
+  executor event records, and verified suffix repair.
 
-The candidate is a controlled stochastic perturbation of a nominal recipe, not
-the output of an LLM or VLM. The modeled candidate errors are wrong tool, wrong
-order, missing inspection, unknown target, and missing tool change. Scheduled
-single-event disturbances are grasp failure, pose shift, station blockage,
-tool unavailability, inspection reject, and low confidence. These labels are
-finite-state benchmark conditions, not sensor observations or physical faults.
+Candidate-plan errors include a wrong tool, wrong order, omitted inspection,
+unknown target, and omitted tool change. A scenario can also contain one
+scheduled disturbance: grasp failure, pose shift, station blockage, tool
+unavailability, inspection rejection, or low confidence. These are named
+finite-state conditions, not physical faults or sensor observations.
 
-## Environment
+## Requirements
 
-The tested environment is Python 3.9.6 on arm64 macOS with NumPy 2.0.2 and
-Matplotlib 3.9.4. Python 3.9 or later is required.
+The reference run was made with Python 3.9.6 on arm64 macOS, NumPy 2.0.2, and
+Matplotlib 3.9.4. Python 3.9 or newer is required.
 
 ```bash
 python3 -m venv .venv
@@ -49,10 +48,11 @@ python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 ```
 
-## Complete local rerun
+## Reproduce the benchmark
 
-Run these commands from the repository root. The first command replaces the
-authoritative `results/` outputs; do not mix files from separate runs.
+Run the following from the repository root. `run_experiments.py` replaces the
+authoritative contents of `results/`, so do not combine outputs from separate
+runs.
 
 ```bash
 python3 -m py_compile \
@@ -69,81 +69,62 @@ python3 figures/make_figure1_composite.py
 python3 figures/make_publication_figures.py
 ```
 
-The primary run has 4,800 matched scenario instances and 24,000 per-method
-records. The sensitivity run has 2,400 matched instances and 12,000 records.
-The default primary design uses 20 seeds, 10 reset episodes per stratum, three
-recipe sizes, two no-disturbance candidate-error profiles, six disturbance
-types, and five methods. The sensitivity sweep uses candidate-error rates
-0.05, 0.10, 0.20, and 0.30.
+The main experiment contains 4,800 matched scenarios and 24,000 method-level
+records. It covers 20 random seeds, 10 reset episodes per stratum, three recipe
+sizes, two candidate-error profiles without disturbances, six disturbance
+types, and five methods. The sensitivity experiment contains 2,400 matched
+scenarios and 12,000 records, and sweeps candidate-error rates of 0.05, 0.10,
+0.20, and 0.30.
 
-## Outputs and interpretation
+## Read the outputs
 
-`results/` is the authoritative machine-readable record for one complete run.
-It contains raw per-method episodes, a run manifest with source hashes,
-analysis tables, bootstrap contrasts, an integrity audit, and the qualitative
-trace. The principal manuscript table sources are:
+`results/` is the machine-readable record of a completed run. It includes raw
+episode records, source hashes, analysis tables, paired bootstrap contrasts, an
+integrity audit, and a qualitative trace. The main summary tables are:
 
-- `results/analysis/table_overall.csv` -> Table IV.
-- `results/analysis/table_robustness.csv` -> Table V.
-- `results/analysis/table_runtime_scalability.csv` -> Table VI.
+- `results/analysis/table_overall.csv`
+- `results/analysis/table_robustness.csv`
+- `results/analysis/table_runtime_scalability.csv`
 
-`results/analysis/integrity_audit.json` must report complete paired records,
-no duplicates, and no source-hash mismatches before results are used. The
-virtual makespan and event-to-completion values are abstract `action-cost`
-units, not elapsed process time.
+Before using a run, check
+`results/analysis/integrity_audit.json`. It should report complete matched
+records, no duplicates, and no source-hash mismatches.
 
-The raw field `disturbance_detected` means that the finite-state executor
-reached the scheduled event and emitted its reason code. It is not a sensor
-detection result. The raw field `human_intervention` is a simulated escalation
-flag set when the modeled controller terminates without recovery; it is not a
-measurement of a human intervention. Accordingly, results report
-event-recorded and simulated-escalation rates rather than perception or human
-performance.
+The timing fields use abstract action-cost units. They are not measurements of
+wall-clock manufacturing time. Similarly, `disturbance_detected` means the
+executor reached the scheduled state and recorded a reason code; it is not a
+sensor-detection result. `human_intervention` is a simulated escalation flag
+when recovery does not occur, not a measurement of human work.
 
-`figures/publication/` contains the final figure exports. Fig. 1 is an
-abstract three-dimensional workstation-state illustration; it explains the
-modeled event flow and is not robot-simulation evidence. The production PDFs
-and SVGs, together with their JSON QA records, are the figure files intended
-for the release manifest. PNG, TIFF, overlay PDFs, and alignment SVGs are
-rendering or QA by-products rather than canonical archival files.
+`figures/publication/` contains the publication figure exports. Figure 1 is an
+abstract three-dimensional workstation-state illustration used to explain the
+event flow; it is not robot-simulation or physical-robot evidence. The PDF and
+SVG figure files, with their JSON quality records, are the archival versions.
 
-## Release preparation
+## Citation and releases
 
-Create a checksum manifest only after rerunning the experiment, regenerating
-the figures, and compiling the final manuscript:
+Use `CITATION.cff` when citing this repository. `.zenodo.json` provides the
+metadata used by Zenodo. A version DOI will be added only after a release is
+actually archived; no DOI is claimed before that step.
+
+To create a checksum manifest after a full rerun and figure regeneration:
 
 ```bash
 python3 make_release_manifest.py
 ```
 
-The manifest includes authoritative results, publication PDFs/SVGs and their
-required JSON QA records, executable source, and formal release metadata. It
-excludes `.venv/`, `results_smoke/`, `results_pre_rerun_20261028/`, all local
-manuscript files, and noncanonical figure by-products.
-
-The canonical repository is
-[`hpz14981791992024-glitch/discrete-event-assembly-benchmark`](https://github.com/hpz14981791992024-glitch/discrete-event-assembly-benchmark).
-The author-metadata release is prepared as `v1.0.1`. `CITATION.cff` and
-`.zenodo.json` identify Pengzhi Hong and Jiaming Zhang of the Shenyang
-University of Chemical Technology. A version-specific DOI can only be stated
-after the release has been archived by Zenodo or another DOI-minting service;
-it is intentionally absent until that occurs. See `RELEASE_CHECKLIST.md` for
-the remaining archival steps.
+`SHA256SUMS` covers the release files, including executable source,
+authoritative results, publication figures, licenses, and release metadata. It
+does not include the locally retained, unpublished manuscript.
 
 ## License
 
-The executable source code is licensed under Apache-2.0; see `LICENSE`.
-The synthetic benchmark records in `results/` and publication figure exports
-are licensed under CC-BY-4.0; see `LICENSE-DATA`. The unpublished manuscript
-is retained locally and is not part of this public artifact.
+The source code is available under the [Apache-2.0 license](LICENSE). Synthetic
+benchmark records in `results/` and publication figure exports are available
+under [CC BY 4.0](LICENSE-DATA).
 
-Neither license changes the evidence boundary of this project: the released
-records support only the declared synthetic discrete-event benchmark.
-
-## Evidence boundary
-
-These data are genuine outputs of the local simulation, but support only the
-declared finite-state benchmark claim. They must not be described as factory
-data, physical-robot data, real LLM/VLM performance, geometric feasibility,
-collision avoidance, independent safety verification, safety certification,
-or deployment readiness.
+These licenses govern reuse; they do not expand the scope of the experimental
+evidence. The repository does not support claims about factory data, physical
+robots, real LLM or VLM performance, geometric feasibility, collision
+avoidance, independent safety verification, safety certification, or deployment
+readiness.
