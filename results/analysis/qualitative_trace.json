@@ -1,0 +1,356 @@
+{
+  "record": {
+    "actions_dispatched": 13,
+    "candidate_error": "wrong_order",
+    "completion_after_detection": 1,
+    "complexity": "extended",
+    "current_state_recipe_rebuilds": 0,
+    "detected_and_completed": 1,
+    "disturbance": "inspection_reject",
+    "disturbance_detected": 1,
+    "fault_time": 7.9,
+    "human_intervention": 0,
+    "method": "vcrisp",
+    "modeled_constraint_rejections": 0,
+    "planner_actions_emitted": 16,
+    "planning_cpu_ms": 0.021207999999994787,
+    "predispatch_repair_triggers": 2,
+    "recovery_attempts": 1,
+    "scenario_id": "qualitative-2",
+    "scenario_kind": "qualitative",
+    "seed": 2,
+    "semantic_error_rate": 1.0,
+    "success": true,
+    "terminal_reason": "goal_reached",
+    "verification_cpu_ms": 0.06999899999998727,
+    "verified_suffix_repairs": 3,
+    "virtual_makespan": 17.1,
+    "virtual_time_to_completion_after_detection": 9.200000000000001
+  },
+  "scenario": {
+    "complexity": "extended",
+    "disturbance": "inspection_reject",
+    "scenario_id": "qualitative-2",
+    "seed": 2,
+    "semantic_error_rate": 1.0
+  },
+  "scope": "Synthetic discrete-event trace; not a physical robot or LLM/VLM execution.",
+  "trace": [
+    {
+      "candidate_error": "wrong_order",
+      "plan": [
+        {
+          "declared_tool": null,
+          "kind": "observe",
+          "target": "cover"
+        },
+        {
+          "declared_tool": null,
+          "kind": "verify_fixture",
+          "target": "assembly"
+        },
+        {
+          "declared_tool": null,
+          "kind": "pick",
+          "target": "cover"
+        },
+        {
+          "declared_tool": null,
+          "kind": "install",
+          "target": "cover"
+        },
+        {
+          "declared_tool": null,
+          "kind": "tool_change",
+          "target": "driver"
+        },
+        {
+          "declared_tool": null,
+          "kind": "inspect",
+          "target": "assembly"
+        },
+        {
+          "declared_tool": "driver",
+          "kind": "fasten",
+          "target": "cover"
+        },
+        {
+          "declared_tool": null,
+          "kind": "tool_change",
+          "target": "gripper"
+        },
+        {
+          "declared_tool": "gripper",
+          "kind": "label",
+          "target": "assembly"
+        },
+        {
+          "declared_tool": null,
+          "kind": "transfer",
+          "target": "assembly"
+        }
+      ],
+      "stage": "candidate_plan"
+    },
+    {
+      "invalid_action": {
+        "declared_tool": null,
+        "kind": "inspect",
+        "target": "assembly"
+      },
+      "reason": "inspection_precondition_failed",
+      "repair_scope": "verified_suffix",
+      "stage": "predispatch_repair"
+    },
+    {
+      "plan": [
+        {
+          "declared_tool": null,
+          "kind": "observe",
+          "target": "cover"
+        },
+        {
+          "declared_tool": null,
+          "kind": "verify_fixture",
+          "target": "assembly"
+        },
+        {
+          "declared_tool": null,
+          "kind": "pick",
+          "target": "cover"
+        },
+        {
+          "declared_tool": null,
+          "kind": "install",
+          "target": "cover"
+        },
+        {
+          "declared_tool": null,
+          "kind": "tool_change",
+          "target": "driver"
+        },
+        {
+          "declared_tool": "driver",
+          "kind": "fasten",
+          "target": "cover"
+        },
+        {
+          "declared_tool": null,
+          "kind": "inspect",
+          "target": "assembly"
+        },
+        {
+          "declared_tool": null,
+          "kind": "tool_change",
+          "target": "gripper"
+        },
+        {
+          "declared_tool": "gripper",
+          "kind": "label",
+          "target": "assembly"
+        },
+        {
+          "declared_tool": null,
+          "kind": "transfer",
+          "target": "assembly"
+        }
+      ],
+      "stage": "verification_authorized"
+    },
+    {
+      "action": {
+        "declared_tool": null,
+        "kind": "observe",
+        "target": "cover"
+      },
+      "is_disturbance": false,
+      "outcome": "success",
+      "reason": null,
+      "stage": "dispatch"
+    },
+    {
+      "action": {
+        "declared_tool": null,
+        "kind": "verify_fixture",
+        "target": "assembly"
+      },
+      "is_disturbance": false,
+      "outcome": "success",
+      "reason": null,
+      "stage": "dispatch"
+    },
+    {
+      "action": {
+        "declared_tool": null,
+        "kind": "pick",
+        "target": "cover"
+      },
+      "is_disturbance": false,
+      "outcome": "success",
+      "reason": null,
+      "stage": "dispatch"
+    },
+    {
+      "action": {
+        "declared_tool": null,
+        "kind": "install",
+        "target": "cover"
+      },
+      "is_disturbance": false,
+      "outcome": "success",
+      "reason": null,
+      "stage": "dispatch"
+    },
+    {
+      "action": {
+        "declared_tool": null,
+        "kind": "tool_change",
+        "target": "driver"
+      },
+      "is_disturbance": false,
+      "outcome": "success",
+      "reason": null,
+      "stage": "dispatch"
+    },
+    {
+      "action": {
+        "declared_tool": "driver",
+        "kind": "fasten",
+        "target": "cover"
+      },
+      "is_disturbance": false,
+      "outcome": "success",
+      "reason": null,
+      "stage": "dispatch"
+    },
+    {
+      "action": {
+        "declared_tool": null,
+        "kind": "inspect",
+        "target": "assembly"
+      },
+      "is_disturbance": true,
+      "outcome": "failure",
+      "reason": "inspection_reject",
+      "stage": "dispatch"
+    },
+    {
+      "invalid_action": {
+        "declared_tool": null,
+        "kind": "inspect",
+        "target": "assembly"
+      },
+      "reason": "inspection_precondition_failed",
+      "repair_scope": "verified_suffix",
+      "stage": "predispatch_repair"
+    },
+    {
+      "plan": [
+        {
+          "declared_tool": null,
+          "kind": "rework",
+          "target": "assembly"
+        },
+        {
+          "declared_tool": "driver",
+          "kind": "fasten",
+          "target": "cover"
+        },
+        {
+          "declared_tool": null,
+          "kind": "inspect",
+          "target": "assembly"
+        },
+        {
+          "declared_tool": null,
+          "kind": "tool_change",
+          "target": "gripper"
+        },
+        {
+          "declared_tool": "gripper",
+          "kind": "label",
+          "target": "assembly"
+        },
+        {
+          "declared_tool": null,
+          "kind": "transfer",
+          "target": "assembly"
+        }
+      ],
+      "repair_scope": "verified_suffix",
+      "stage": "runtime_repair",
+      "trigger": "inspection_reject"
+    },
+    {
+      "action": {
+        "declared_tool": null,
+        "kind": "rework",
+        "target": "assembly"
+      },
+      "is_disturbance": false,
+      "outcome": "success",
+      "reason": null,
+      "stage": "dispatch"
+    },
+    {
+      "action": {
+        "declared_tool": "driver",
+        "kind": "fasten",
+        "target": "cover"
+      },
+      "is_disturbance": false,
+      "outcome": "success",
+      "reason": null,
+      "stage": "dispatch"
+    },
+    {
+      "action": {
+        "declared_tool": null,
+        "kind": "inspect",
+        "target": "assembly"
+      },
+      "is_disturbance": false,
+      "outcome": "success",
+      "reason": null,
+      "stage": "dispatch"
+    },
+    {
+      "action": {
+        "declared_tool": null,
+        "kind": "tool_change",
+        "target": "gripper"
+      },
+      "is_disturbance": false,
+      "outcome": "success",
+      "reason": null,
+      "stage": "dispatch"
+    },
+    {
+      "action": {
+        "declared_tool": "gripper",
+        "kind": "label",
+        "target": "assembly"
+      },
+      "is_disturbance": false,
+      "outcome": "success",
+      "reason": null,
+      "stage": "dispatch"
+    },
+    {
+      "action": {
+        "declared_tool": null,
+        "kind": "transfer",
+        "target": "assembly"
+      },
+      "is_disturbance": false,
+      "outcome": "success",
+      "reason": null,
+      "stage": "dispatch"
+    },
+    {
+      "outcome": "success",
+      "reason": "goal_reached",
+      "stage": "terminal"
+    }
+  ]
+}

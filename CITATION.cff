@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this benchmark, please cite the archived software release."
+title: "V-CRISP Synthetic Discrete-Event Assembly Benchmark"
+type: software
+version: "v1.0.1"
+url: "https://github.com/hpz14981791992024-glitch/discrete-event-assembly-benchmark"
+repository-code: "https://github.com/hpz14981791992024-glitch/discrete-event-assembly-benchmark"
+license: "Apache-2.0"
+authors:
+  - family-names: "Hong"
+    given-names: "Pengzhi"
+    affiliation: "Shenyang University of Chemical Technology"
+    orcid: "https://orcid.org/0009-0009-3483-6475"
+  - family-names: "Zhang"
+    given-names: "Jiaming"
+    affiliation: "Shenyang University of Chemical Technology"

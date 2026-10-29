@@ -1,0 +1,5 @@
+configuration,structured_output,pre_dispatch_verifier,event_recorder,verified_suffix_repair,task_success_rate,modeled_constraint_rejection_rate,event_recorded_and_completed_rate,completion_after_event_recording_rate,mean_successful_virtual_makespan
+"Perturbed candidate direct (no schema, no verifier, no recovery)",0,0,0,0,0.18375,0.026774073384242876,0,0,10.365306122448981
+Structured no-verify (schema + current-state rebuild),1,0,1,0,0.9983333333333333,0.041974332841067455,0.9977777777777778,0.9977777777777778,11.510183639399
+Oracle-state symbolic (current-state rebuild),0,0,1,0,1.0,0.044444444444444446,1,1,11.008333333333335
+V-CRISP (pre-dispatch verifier + verified suffix repair),1,1,1,1,1.0,0.0,1,1,11.545666666666667

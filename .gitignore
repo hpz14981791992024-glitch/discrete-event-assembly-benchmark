@@ -1,0 +1,41 @@
+# Local Python environments and bytecode
+.venv/
+__pycache__/
+*.py[cod]
+
+# Non-authoritative experimental outputs
+results_smoke/
+results_pre_rerun_20261028/
+results/analysis/figures/
+
+# Local LaTeX build intermediates; retain the final PDF and source files.
+manuscript/
+manuscript/ieee/*.aux
+manuscript/ieee/*.bbl
+manuscript/ieee/*.blg
+manuscript/ieee/*.fdb_latexmk
+manuscript/ieee/*.fls
+manuscript/ieee/*.log
+manuscript/ieee/*.out
+
+# Superseded local rendering scratch space
+figures/rendered/
+
+# Noncanonical figure exports and visual-QA overlays. The release contains
+# publication PDF/SVG files and the selected JSON audit records instead.
+figures/publication/*.png
+figures/publication/*.tiff
+figures/publication/*.alignment.svg
+figures/publication/*.collision-audit.pdf
+figures/publication/*.collision-audit.txt
+figures/publication/*.collision-audit.collision-audit.*
+figures/publication/*.collision-audit.text-audit.json
+
+# Internal drafting and citation-audit notes are not release artifacts.
+manuscript/vcrisp_synthetic_benchmark_tase_draft.md
+manuscript/citation_verification.md
+
+# Author-controlled metadata templates are kept locally until their required
+# authorship and archival details have been verified.
+CITATION.cff.template
+zenodo.json.template

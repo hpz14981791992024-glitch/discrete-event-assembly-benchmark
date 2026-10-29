@@ -1,0 +1,40 @@
+{
+  "audit_passed": true,
+  "main": {
+    "audit_passed": true,
+    "duplicate_method_scenario_records": [],
+    "expected_methods": [
+      "rule_script",
+      "classical_global",
+      "semantic_direct",
+      "structured_no_verify",
+      "vcrisp"
+    ],
+    "incomplete_scenarios": {},
+    "record_count": 24000,
+    "scenario_count": 4800,
+    "source": "results/episodes_main.csv",
+    "vcrisp": {
+      "episodes": 4800,
+      "modeled_constraint_rejections": 0,
+      "successes": 4800
+    }
+  },
+  "sensitivity": {
+    "audit_passed": true,
+    "duplicate_method_scenario_records": [],
+    "expected_methods": [
+      "rule_script",
+      "classical_global",
+      "semantic_direct",
+      "structured_no_verify",
+      "vcrisp"
+    ],
+    "incomplete_scenarios": {},
+    "record_count": 12000,
+    "scenario_count": 2400,
+    "source": "results/episodes_sensitivity.csv"
+  },
+  "source_hash_mismatches": [],
+  "source_hashes_match_manifest": true
+}

@@ -1,0 +1,31 @@
+{
+  "applicable": false,
+  "backend": "matplotlib",
+  "figure": {
+    "height_pt": 162.0,
+    "width_pt": 518.4
+  },
+  "findings": [],
+  "panels": [
+    {
+      "bbox_pt": {
+        "bottom": 17.819999999999997,
+        "left": 64.8,
+        "right": 466.56,
+        "top": 142.56
+      },
+      "id": "a",
+      "panel_label_anchor_pt": null
+    }
+  ],
+  "schema_version": 1,
+  "summary": {
+    "fail": 0,
+    "warn": 0
+  },
+  "tolerances": {
+    "alignment_pt": 1.5,
+    "gutter_pt": 1.5
+  },
+  "verdict": "PASS"
+}

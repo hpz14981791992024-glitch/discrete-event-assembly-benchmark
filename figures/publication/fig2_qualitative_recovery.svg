@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="518.4pt" height="162pt" viewBox="0 0 518.4 162" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-29T21:03:47.827912</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.9.4, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 162 
+L 518.4 162 
+L 518.4 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="text_1">
+    <g id="patch_2">
+     <path d="M 52.764922 87.818892 
+L 106.595078 87.818892 
+Q 109.975078 87.818892 109.975078 84.438892 
+L 109.975078 71.77288 
+Q 109.975078 68.39288 106.595078 68.39288 
+L 52.764922 68.39288 
+Q 49.384922 68.39288 49.384922 71.77288 
+L 49.384922 84.438892 
+Q 49.384922 87.818892 52.764922 87.818892 
+z
+" style="fill: #e0ecff; stroke: #475569; stroke-width: 0.8; stroke-linejoin: miter"/>
+    </g>
+    <text style="font: 6.5px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(57.817148 76.428505)">Candidate plan</text>
+    <text style="font: 6.5px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(52.764922 83.070845)">wrong action order</text>
+   </g>
+   <g id="patch_3">
+    <path d="M 102.514043 51.8724 
+Q 116.881192 51.8724 130.130308 51.8724 
+" style="fill: none; stroke: #475569; stroke-linecap: round"/>
+    <path d="M 127.330308 50.4724 
+L 130.130308 51.8724 
+L 127.330308 53.2724 
+" style="fill: none; stroke: #475569; stroke-linecap: round"/>
+   </g>
+   <g id="text_2">
+    <g id="patch_4">
+     <path d="M 131.142617 87.818892 
+L 177.017383 87.818892 
+Q 180.397383 87.818892 180.397383 84.438892 
+L 180.397383 71.77288 
+Q 180.397383 68.39288 177.017383 68.39288 
+L 131.142617 68.39288 
+Q 127.762617 68.39288 127.762617 71.77288 
+L 127.762617 84.438892 
+Q 127.762617 87.818892 131.142617 87.818892 
+z
+" style="fill: #fee2e2; stroke: #475569; stroke-width: 0.8; stroke-linejoin: miter"/>
+    </g>
+    <text style="font: 6.5px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(131.142617 76.428505)">Checker repairs</text>
+    <text style="font: 6.5px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(131.499609 83.070845)">early inspection</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 176.914043 51.8724 
+Q 191.281192 51.8724 204.530308 51.8724 
+" style="fill: none; stroke: #475569; stroke-linecap: round"/>
+    <path d="M 201.730308 50.4724 
+L 204.530308 51.8724 
+L 201.730308 53.2724 
+" style="fill: none; stroke: #475569; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <g id="patch_6">
+     <path d="M 205.361836 87.780806 
+L 251.598164 87.780806 
+Q 254.978164 87.780806 254.978164 84.400806 
+L 254.978164 71.734794 
+Q 254.978164 68.354794 251.598164 68.354794 
+L 205.361836 68.354794 
+Q 201.981836 68.354794 201.981836 71.734794 
+L 201.981836 84.400806 
+Q 201.981836 87.780806 205.361836 87.780806 
+z
+" style="fill: #dcfce7; stroke: #475569; stroke-width: 0.8; stroke-linejoin: miter"/>
+    </g>
+    <text style="font: 6.5px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(205.361836 76.466591)">Corrected prefix</text>
+    <text style="font: 6.5px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(213.304023 83.108931)">authorized</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 251.314043 51.8724 
+Q 265.681192 51.8724 278.930308 51.8724 
+" style="fill: none; stroke: #475569; stroke-linecap: round"/>
+    <path d="M 276.130308 50.4724 
+L 278.930308 51.8724 
+L 276.130308 53.2724 
+" style="fill: none; stroke: #475569; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <g id="patch_8">
+     <path d="M 272.89418 87.817368 
+L 332.86582 87.817368 
+Q 336.24582 87.817368 336.24582 84.437368 
+L 336.24582 71.698232 
+Q 336.24582 68.318232 332.86582 68.318232 
+L 272.89418 68.318232 
+Q 269.51418 68.318232 269.51418 71.698232 
+L 269.51418 84.437368 
+Q 269.51418 87.817368 272.89418 87.817368 
+z
+" style="fill: #fef3c7; stroke: #475569; stroke-width: 0.8; stroke-linejoin: miter"/>
+    </g>
+    <text style="font: 6.5px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(272.89418 76.35081)">Event logger records</text>
+    <text style="font: 6.5px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(275.06 83.069321)">inspection rejection</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 325.714043 51.8724 
+Q 340.081192 51.8724 353.330308 51.8724 
+" style="fill: none; stroke: #475569; stroke-linecap: round"/>
+    <path d="M 350.530308 50.4724 
+L 353.330308 51.8724 
+L 350.530308 53.2724 
+" style="fill: none; stroke: #475569; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <g id="patch_10">
+     <path d="M 344.767812 87.826357 
+L 409.792188 87.826357 
+Q 413.172188 87.826357 413.172188 84.446357 
+L 413.172188 71.689243 
+Q 413.172188 68.309243 409.792188 68.309243 
+L 344.767812 68.309243 
+Q 341.387812 68.309243 341.387812 71.689243 
+L 341.387812 84.446357 
+Q 341.387812 87.826357 344.767812 87.826357 
+z
+" style="fill: #dbeafe; stroke: #475569; stroke-width: 0.8; stroke-linejoin: miter"/>
+    </g>
+    <text style="font: 6.5px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(348.797305 76.42104)">Verified suffix repair</text>
+    <text style="font: 6.5px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(344.767812 83.154482)">rework, fasten, inspect</text>
+   </g>
+   <g id="patch_11">
+    <path d="M 400.114043 51.8724 
+Q 414.481192 51.8724 427.730308 51.8724 
+" style="fill: none; stroke: #475569; stroke-linecap: round"/>
+    <path d="M 424.930308 50.4724 
+L 427.730308 51.8724 
+L 424.930308 53.2724 
+" style="fill: none; stroke: #475569; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <g id="patch_12">
+     <path d="M 439.401094 87.741196 
+L 463.958906 87.741196 
+Q 467.338906 87.741196 467.338906 84.361196 
+L 467.338906 71.774404 
+Q 467.338906 68.394404 463.958906 68.394404 
+L 439.401094 68.394404 
+Q 436.021094 68.394404 436.021094 71.774404 
+L 436.021094 84.361196 
+Q 436.021094 87.741196 439.401094 87.741196 
+z
+" style="fill: #dcfce7; stroke: #475569; stroke-width: 0.8; stroke-linejoin: miter"/>
+    </g>
+    <text style="font: 6.5px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(439.401094 76.426982)">Terminal</text>
+    <text style="font: 6.5px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(439.940391 83.069321)">success</text>
+   </g>
+   <g id="text_7">
+    <text style="fill: #64748b; font: 5.8px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="79.68" y="130.71195" transform="rotate(-0 79.68 130.71195)">Synthetic extended-recipe episode; deterministic seed = 2; no physical robot or language model is involved.</text>
+   </g>
+  </g>
+ </g>
+</svg>
