@@ -3,6 +3,7 @@ message: "If you use this benchmark, please cite the archived software release."
 title: "V-CRISP Synthetic Discrete-Event Assembly Benchmark"
 type: software
 version: "v1.0.1"
+doi: "10.5281/zenodo.23766150"
 url: "https://github.com/hpz14981791992024-glitch/discrete-event-assembly-benchmark"
 repository-code: "https://github.com/hpz14981791992024-glitch/discrete-event-assembly-benchmark"
 license: "Apache-2.0"

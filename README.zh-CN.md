@@ -66,7 +66,7 @@ python3 figures/make_publication_figures.py
 
 ## 引用与发布
 
-引用本仓库时请使用 `CITATION.cff`。`.zenodo.json` 提供 Zenodo 所需的元数据。版本 DOI 只会在版本实际完成归档后补充，在此之前不声明 DOI。
+引用本仓库时请使用 `CITATION.cff`。`v1.0.1` 已由 Zenodo 归档，其版本 DOI 为 [10.5281/zenodo.23766150](https://doi.org/10.5281/zenodo.23766150)。引用该归档版本时应使用这个版本 DOI；[概念 DOI](https://doi.org/10.5281/zenodo.23766149) 会始终指向 Zenodo 中的最新版本。`.zenodo.json` 用于为后续 Zenodo 发布提供元数据。
 
 在完整重跑实验并生成图件后，可以用下面的命令生成发布校验清单：
 

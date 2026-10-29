@@ -103,9 +103,12 @@ SVG figure files, with their JSON quality records, are the archival versions.
 
 ## Citation and releases
 
-Use `CITATION.cff` when citing this repository. `.zenodo.json` provides the
-metadata used by Zenodo. A version DOI will be added only after a release is
-actually archived; no DOI is claimed before that step.
+Use `CITATION.cff` when citing this repository. Version `v1.0.1` is archived
+by Zenodo at [10.5281/zenodo.23766150](https://doi.org/10.5281/zenodo.23766150).
+Use this version DOI when the citation needs to identify the archived release.
+The [concept DOI](https://doi.org/10.5281/zenodo.23766149) always resolves to
+the latest Zenodo version. `.zenodo.json` provides metadata for future Zenodo
+releases.
 
 To create a checksum manifest after a full rerun and figure regeneration:
 
