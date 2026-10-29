@@ -119,11 +119,12 @@ SVG figure files, with their JSON quality records, are the archival versions.
 Use `CITATION.cff` when citing this repository. The immutable `v1.0.1` release
 is archived by Zenodo at
 [10.5281/zenodo.23766150](https://doi.org/10.5281/zenodo.23766150), but it does
-not contain the component-ablation results. The current release candidate is
-`v1.0.2`; its version DOI is intentionally not written here until Zenodo has
-archived the pushed tag. The [concept DOI](https://doi.org/10.5281/zenodo.23766149)
-resolves to the latest Zenodo version after archiving. `.zenodo.json` provides
-the metadata for `v1.0.2`.
+not contain the component-ablation results. Version `v1.0.2` is archived at
+[10.5281/zenodo.23768078](https://doi.org/10.5281/zenodo.23768078); use this
+version DOI to identify the results in the current release. The
+[concept DOI](https://doi.org/10.5281/zenodo.23766149) resolves to the latest
+Zenodo version. The version DOI was added to this branch after the immutable
+release was archived.
 
 To create a checksum manifest after a full rerun and figure regeneration:
 

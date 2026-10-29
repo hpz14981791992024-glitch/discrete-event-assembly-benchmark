@@ -73,7 +73,7 @@ python3 figures/make_publication_figures.py
 
 ## 引用与发布
 
-引用本仓库时请使用 `CITATION.cff`。不可变的 `v1.0.1` 已由 Zenodo 归档，版本 DOI 为 [10.5281/zenodo.23766150](https://doi.org/10.5281/zenodo.23766150)，但该版本不包含组件消融结果。当前发布候选为 `v1.0.2`；在 Zenodo 完成新标签归档前，这一版本的 DOI 不会被预先填写。[概念 DOI](https://doi.org/10.5281/zenodo.23766149) 会在归档后指向最新版本。`.zenodo.json` 保存 `v1.0.2` 的归档元数据。
+引用本仓库时请使用 `CITATION.cff`。不可变的 `v1.0.1` 已由 Zenodo 归档，版本 DOI 为 [10.5281/zenodo.23766150](https://doi.org/10.5281/zenodo.23766150)，但该版本不包含组件消融结果。包含新结果的 `v1.0.2` 版本 DOI 为 [10.5281/zenodo.23768078](https://doi.org/10.5281/zenodo.23768078)；[概念 DOI](https://doi.org/10.5281/zenodo.23766149) 指向 Zenodo 中的最新版本。版本 DOI 在不可变归档完成后回填到当前分支。
 
 在完整重跑实验并生成图件后，可以用下面的命令生成发布校验清单：
 

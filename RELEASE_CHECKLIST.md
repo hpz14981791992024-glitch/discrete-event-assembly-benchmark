@@ -28,10 +28,13 @@ safety-certified system.
    version DOI to the repository documentation, citation metadata, and the
    local manuscript.
 
-The release candidate contains the regenerated main, sensitivity, and matched
-component-ablation records. `v1.0.1` remains frozen and must not be moved,
-deleted, or recreated. The `v1.0.2` DOI is deliberately absent until Zenodo
-confirms the archive; never infer it from a tag name or a previous DOI.
+Version `v1.0.2` contains the regenerated main, sensitivity, and matched
+component-ablation records. Zenodo published it at
+[10.5281/zenodo.23768078](https://doi.org/10.5281/zenodo.23768078); its landing
+page confirms the version, creators, repository link, and license description.
+The DOI was added to the main branch after archival, so the frozen tag's
+metadata cannot contain its own DOI. Neither release tag should be moved,
+deleted, or recreated.
 
 ## Local verification
 
