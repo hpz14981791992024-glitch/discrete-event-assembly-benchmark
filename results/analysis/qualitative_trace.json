@@ -13,7 +13,7 @@
     "method": "vcrisp",
     "modeled_constraint_rejections": 0,
     "planner_actions_emitted": 16,
-    "planning_cpu_ms": 0.021207999999994787,
+    "planning_cpu_ms": 0.020249999999999435,
     "predispatch_repair_triggers": 2,
     "recovery_attempts": 1,
     "scenario_id": "qualitative-2",
@@ -22,7 +22,7 @@
     "semantic_error_rate": 1.0,
     "success": true,
     "terminal_reason": "goal_reached",
-    "verification_cpu_ms": 0.06999899999998727,
+    "verification_cpu_ms": 0.0704169999999893,
     "verified_suffix_repairs": 3,
     "virtual_makespan": 17.1,
     "virtual_time_to_completion_after_detection": 9.200000000000001

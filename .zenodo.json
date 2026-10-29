@@ -3,7 +3,7 @@
   "description": "Reproducible artifact for a deliberately limited synthetic discrete-event assembly benchmark. The release contains executable source code, authoritative per-episode records, analysis tables, publication figures, formal citation metadata, and SHA-256 checksums. It evaluates an abstract finite-state model only; it is not evidence of physical-robot performance, perception, geometric task and motion planning, independent safety verification, or deployment readiness. Executable source code is licensed under Apache-2.0. Synthetic benchmark records and publication figures are licensed under CC-BY-4.0. The unpublished manuscript is not included in this artifact.",
   "upload_type": "software",
   "license": "Apache-2.0",
-  "version": "v1.0.1",
+  "version": "v1.0.2",
   "creators": [
     {
       "name": "Hong, Pengzhi",

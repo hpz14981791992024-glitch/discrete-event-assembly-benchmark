@@ -1,0 +1,5 @@
+method,configuration,initial_predispatch_check,runtime_suffix_verification,episodes,task_success_rate,mean_modeled_constraint_rejections_per_episode,predispatch_repair_triggers_per_episode,simulated_escalation_rate,mean_successful_virtual_makespan
+structured_no_verify,No initial check / no runtime suffix verification,0,0,4800,0.9983333333333333,0.42041666666666666,0.044375,0.0016666666666666668,11.510183639399
+checker_only,Initial check / no runtime suffix verification,1,0,4800,1.0,0.345,0.216875,0.0,11.545666666666667
+repair_only,No initial check / runtime suffix verification,0,1,4800,1.0,0.07895833333333334,0.38979166666666665,0.0,11.5235
+vcrisp,Initial check / runtime suffix verification,1,1,4800,1.0,0.0,0.5854166666666667,0.0,11.545666666666667

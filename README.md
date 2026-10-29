@@ -30,6 +30,13 @@ methods:
 - `vcrisp`: uses a structured candidate, a compiler, pre-dispatch checks,
   executor event records, and verified suffix repair.
 
+The component ablation reuses the same 4,800 scenario identifiers and compares
+four configurations: `structured_no_verify`, initial checking only
+(`checker_only`), runtime suffix verification only (`repair_only`), and the
+full `vcrisp` configuration. The ablation is a timing comparison within the
+same finite-state semantics; it is not a comparison of independently
+validated safety models.
+
 Candidate-plan errors include a wrong tool, wrong order, omitted inspection,
 unknown target, and omitted tool change. A scenario can also contain one
 scheduled disturbance: grasp failure, pose shift, station blockage, tool
@@ -76,6 +83,11 @@ types, and five methods. The sensitivity experiment contains 2,400 matched
 scenarios and 12,000 records, and sweeps candidate-error rates of 0.05, 0.10,
 0.20, and 0.30.
 
+The component ablation contains 4,800 matched scenarios and 19,200 records
+(four configurations per scenario). Its summary and paired bootstrap tables
+are `results/analysis/table_component_ablation.csv` and
+`results/analysis/component_ablation_bootstrap.csv`.
+
 ## Read the outputs
 
 `results/` is the machine-readable record of a completed run. It includes raw
@@ -90,8 +102,9 @@ Before using a run, check
 `results/analysis/integrity_audit.json`. It should report complete matched
 records, no duplicates, and no source-hash mismatches.
 
-The timing fields use abstract action-cost units. They are not measurements of
-wall-clock manufacturing time. Similarly, `disturbance_detected` means the
+Virtual makespan fields use abstract action-cost units, not manufacturing time.
+The historical fields named `planning_cpu_ms` and `verification_cpu_ms` record
+local elapsed time from `time.perf_counter()`, not CPU time. Similarly, `disturbance_detected` means the
 executor reached the scheduled state and recorded a reason code; it is not a
 sensor-detection result. `human_intervention` is a simulated escalation flag
 when recovery does not occur, not a measurement of human work.
@@ -103,12 +116,14 @@ SVG figure files, with their JSON quality records, are the archival versions.
 
 ## Citation and releases
 
-Use `CITATION.cff` when citing this repository. Version `v1.0.1` is archived
-by Zenodo at [10.5281/zenodo.23766150](https://doi.org/10.5281/zenodo.23766150).
-Use this version DOI when the citation needs to identify the archived release.
-The [concept DOI](https://doi.org/10.5281/zenodo.23766149) always resolves to
-the latest Zenodo version. `.zenodo.json` provides metadata for future Zenodo
-releases.
+Use `CITATION.cff` when citing this repository. The immutable `v1.0.1` release
+is archived by Zenodo at
+[10.5281/zenodo.23766150](https://doi.org/10.5281/zenodo.23766150), but it does
+not contain the component-ablation results. The current release candidate is
+`v1.0.2`; its version DOI is intentionally not written here until Zenodo has
+archived the pushed tag. The [concept DOI](https://doi.org/10.5281/zenodo.23766149)
+resolves to the latest Zenodo version after archiving. `.zenodo.json` provides
+the metadata for `v1.0.2`.
 
 To create a checksum manifest after a full rerun and figure regeneration:
 
@@ -117,7 +132,7 @@ python3 make_release_manifest.py
 ```
 
 `SHA256SUMS` covers the release files, including executable source,
-authoritative results, publication figures, licenses, and release metadata. 
+authoritative results, publication figures, licenses, and release metadata.
 
 ## License
 

@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Dict, List
 
 from simulator import (
+    ABLATION_METHODS,
     MAX_PREDISPATCH_REPAIRS,
     MAX_RUNTIME_RECOVERY_ATTEMPTS,
     METHODS,
@@ -66,6 +67,8 @@ def main() -> None:
     )
     main_records = run_benchmark(main_scenarios)
     write_csv(output_dir / "episodes_main.csv", main_records)
+    ablation_records = run_benchmark(main_scenarios, methods=ABLATION_METHODS)
+    write_csv(output_dir / "episodes_component_ablation.csv", ablation_records)
 
     manifest = {
         "benchmark": "synthetic discrete-event assembly benchmark",
@@ -106,6 +109,19 @@ def main() -> None:
             "max_runtime_recovery_attempts": MAX_RUNTIME_RECOVERY_ATTEMPTS,
             "scenario_count": len(main_scenarios),
             "record_count": len(main_records),
+        },
+        "component_ablation": {
+            "scenario_count": len(main_scenarios),
+            "record_count": len(ablation_records),
+            "methods": list(ABLATION_METHODS),
+            "initial_predispatch_check": {
+                "disabled": ["structured_no_verify", "repair_only"],
+                "enabled": ["checker_only", "vcrisp"],
+            },
+            "runtime_suffix_verification": {
+                "disabled": ["structured_no_verify", "checker_only"],
+                "enabled": ["repair_only", "vcrisp"],
+            },
         },
         "scope": {
             "is_physical_robot_experiment": False,

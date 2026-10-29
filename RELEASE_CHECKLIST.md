@@ -13,7 +13,7 @@ build intermediates. Archival does not turn this finite-state benchmark into
 evidence about a physical robot, LLM/VLM, geometric planner, or
 safety-certified system.
 
-## Before the next release
+## v1.0.2 release
 
 1. Confirm the intended public files and leave the unpublished `manuscript/`
    directory out of the release.
@@ -25,7 +25,13 @@ safety-certified system.
    intended changes, then create and push a new immutable Git tag.
 5. After Zenodo has archived the new tag, verify its landing page, files,
    version, creators, repository URL, licenses, and DOI. Only then add that
-   version DOI to the repository documentation and citation metadata.
+   version DOI to the repository documentation, citation metadata, and the
+   local manuscript.
+
+The release candidate contains the regenerated main, sensitivity, and matched
+component-ablation records. `v1.0.1` remains frozen and must not be moved,
+deleted, or recreated. The `v1.0.2` DOI is deliberately absent until Zenodo
+confirms the archive; never infer it from a tag name or a previous DOI.
 
 ## Local verification
 

@@ -23,7 +23,7 @@ import numpy as np
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from simulator import METHODS
+from simulator import ABLATION_METHODS, METHODS
 
 
 NUMERIC_COLUMNS = {
@@ -53,6 +53,8 @@ DISPLAY_NAMES = {
     "classical_global": "Oracle-state symbolic",
     "semantic_direct": "Perturbed candidate direct",
     "structured_no_verify": "Structured no-verify",
+    "checker_only": "Initial check only",
+    "repair_only": "Runtime verified repair only",
     "vcrisp": "V-CRISP",
 }
 
@@ -135,9 +137,11 @@ def paired_bootstrap_difference(
     )
 
 
-def aggregate_main(rows: Sequence[Mapping[str, object]]) -> List[Dict[str, object]]:
+def aggregate_main(
+    rows: Sequence[Mapping[str, object]], methods: Sequence[str] = METHODS
+) -> List[Dict[str, object]]:
     table_rows: List[Dict[str, object]] = []
-    for method in METHODS:
+    for method in methods:
         group = [row for row in rows if row["method"] == method]
         disturbance_group = [row for row in group if row["disturbance"] != "none"]
         action_count = sum(int(row["actions_dispatched"]) for row in group)
@@ -148,6 +152,9 @@ def aggregate_main(rows: Sequence[Mapping[str, object]]) -> List[Dict[str, objec
                 "episodes": len(group),
                 "task_success_rate": mean(float(row["success"]) for row in group),
                 "modeled_constraint_rejection_rate": rejection_attempts / action_count if action_count else 0.0,
+                "mean_modeled_constraint_rejections_per_episode": mean(
+                    float(row["modeled_constraint_rejections"]) for row in group
+                ),
                 "predispatch_repair_triggers_per_episode": mean(
                     float(row["predispatch_repair_triggers"]) for row in group
                 ),
@@ -237,6 +244,92 @@ def ablation_rows(rows: Sequence[Mapping[str, object]]) -> List[Dict[str, object
             }
         )
     return result
+
+
+def component_ablation_rows(rows: Sequence[Mapping[str, object]]) -> List[Dict[str, object]]:
+    """Summarize the matched two-factor component ablation."""
+
+    mapping = {
+        "structured_no_verify": (
+            "No initial check / no runtime suffix verification",
+            0,
+            0,
+        ),
+        "checker_only": (
+            "Initial check / no runtime suffix verification",
+            1,
+            0,
+        ),
+        "repair_only": (
+            "No initial check / runtime suffix verification",
+            0,
+            1,
+        ),
+        "vcrisp": (
+            "Initial check / runtime suffix verification",
+            1,
+            1,
+        ),
+    }
+    summary = {row["method"]: row for row in aggregate_main(rows, methods=ABLATION_METHODS)}
+    output: List[Dict[str, object]] = []
+    for method in ABLATION_METHODS:
+        name, initial_check, runtime_verification = mapping[method]
+        row = summary[method]
+        output.append(
+            {
+                "method": method,
+                "configuration": name,
+                "initial_predispatch_check": initial_check,
+                "runtime_suffix_verification": runtime_verification,
+                "episodes": row["episodes"],
+                "task_success_rate": row["task_success_rate"],
+                "mean_modeled_constraint_rejections_per_episode": row[
+                    "mean_modeled_constraint_rejections_per_episode"
+                ],
+                "predispatch_repair_triggers_per_episode": row[
+                    "predispatch_repair_triggers_per_episode"
+                ],
+                "simulated_escalation_rate": row["simulated_escalation_rate"],
+                "mean_successful_virtual_makespan": row["mean_successful_virtual_makespan"],
+            }
+        )
+    return output
+
+
+def component_ablation_comparisons(
+    rows: Sequence[Mapping[str, object]],
+) -> List[Dict[str, object]]:
+    """Pairwise component contrasts for the predefined ablation matrix."""
+
+    comparisons = (
+        ("checker_only_minus_structured_no_verify", "checker_only", "structured_no_verify"),
+        ("repair_only_minus_structured_no_verify", "repair_only", "structured_no_verify"),
+        ("vcrisp_minus_checker_only", "vcrisp", "checker_only"),
+        ("vcrisp_minus_repair_only", "vcrisp", "repair_only"),
+    )
+    metrics = (
+        "success",
+        "modeled_constraint_rejections",
+        "predispatch_repair_triggers",
+        "human_intervention",
+        "successful_virtual_makespan",
+    )
+    output: List[Dict[str, object]] = []
+    for name, method, baseline in comparisons:
+        for metric in metrics:
+            estimate, low, high, n = paired_bootstrap_difference(rows, method, baseline, metric)
+            output.append(
+                {
+                    "comparison": name,
+                    "metric": metric,
+                    "paired_episodes": n,
+                    "mean_difference": estimate,
+                    "ci95_low": low,
+                    "ci95_high": high,
+                }
+            )
+    return output
 
 
 def sensitivity_rows(rows: Sequence[Mapping[str, object]]) -> List[Dict[str, object]]:
@@ -474,6 +567,8 @@ def main() -> None:
     figures_dir.mkdir(parents=True, exist_ok=True)
 
     main_rows = read_csv(results_dir / "episodes_main.csv")
+    ablation_input = results_dir / "episodes_component_ablation.csv"
+    ablation_input_rows = read_csv(ablation_input) if ablation_input.exists() else []
     sensitivity_input = results_dir / "episodes_sensitivity.csv"
     sensitivity_input_rows = read_csv(sensitivity_input) if sensitivity_input.exists() else []
     manifest = json.loads((results_dir / "run_manifest.json").read_text(encoding="utf-8"))
@@ -484,10 +579,18 @@ def main() -> None:
     paired = paired_comparisons(main_rows)
     sensitivity = sensitivity_rows(sensitivity_input_rows)
     runtime = runtime_rows(main_rows)
+    component_ablations = component_ablation_rows(ablation_input_rows) if ablation_input_rows else []
+    component_ablation_paired = (
+        component_ablation_comparisons(ablation_input_rows) if ablation_input_rows else []
+    )
 
     write_csv(analysis_dir / "table_overall.csv", summary)
     write_csv(analysis_dir / "table_robustness.csv", disturbance)
     write_csv(analysis_dir / "table_ablation.csv", ablations)
+    if component_ablations:
+        write_csv(analysis_dir / "table_component_ablation.csv", component_ablations)
+    if component_ablation_paired:
+        write_csv(analysis_dir / "component_ablation_bootstrap.csv", component_ablation_paired)
     write_csv(analysis_dir / "paired_bootstrap.csv", paired)
     if sensitivity:
         write_csv(analysis_dir / "table_sensitivity.csv", sensitivity)

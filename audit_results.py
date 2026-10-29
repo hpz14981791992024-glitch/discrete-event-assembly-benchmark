@@ -9,7 +9,7 @@ import json
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from simulator import METHODS
+from simulator import ABLATION_METHODS, METHODS
 
 
 def bool_value(value: str) -> bool:
@@ -20,7 +20,7 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def audit_pairing(path: Path) -> dict:
+def audit_pairing(path: Path, expected_methods: tuple[str, ...] = METHODS) -> dict:
     """Validate one result file has exactly one row per method and scenario."""
 
     with path.open(newline="", encoding="utf-8") as handle:
@@ -33,11 +33,11 @@ def audit_pairing(path: Path) -> dict:
         by_scenario[scenario_id].append(method)
         pair_counts[(scenario_id, method)] += 1
 
-    expected_methods = set(METHODS)
+    expected_method_set = set(expected_methods)
     incomplete = {
-        scenario_id: sorted(set(methods) ^ expected_methods)
+        scenario_id: sorted(set(methods) ^ expected_method_set)
         for scenario_id, methods in by_scenario.items()
-        if set(methods) != expected_methods or len(methods) != len(METHODS)
+        if set(methods) != expected_method_set or len(methods) != len(expected_methods)
     }
     duplicates = [
         {"scenario_id": scenario_id, "method": method, "count": count}
@@ -48,7 +48,7 @@ def audit_pairing(path: Path) -> dict:
         "source": str(path),
         "record_count": len(rows),
         "scenario_count": len(by_scenario),
-        "expected_methods": list(METHODS),
+        "expected_methods": list(expected_methods),
         "incomplete_scenarios": incomplete,
         "duplicate_method_scenario_records": duplicates,
         "audit_passed": not incomplete and not duplicates,
@@ -74,6 +74,12 @@ def main() -> None:
     }
     sensitivity_path = args.results_dir / "episodes_sensitivity.csv"
     sensitivity_report = audit_pairing(sensitivity_path) if sensitivity_path.exists() else None
+    ablation_path = args.results_dir / "episodes_component_ablation.csv"
+    ablation_report = (
+        audit_pairing(ablation_path, expected_methods=ABLATION_METHODS)
+        if ablation_path.exists()
+        else None
+    )
     manifest_path = args.results_dir / "run_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     hash_mismatches = []
@@ -91,9 +97,11 @@ def main() -> None:
     report = {
         "main": main_report,
         "sensitivity": sensitivity_report,
+        "component_ablation": ablation_report,
         "source_hash_mismatches": hash_mismatches,
         "audit_passed": main_report["audit_passed"]
-        and (sensitivity_report is None or sensitivity_report["audit_passed"]),
+        and (sensitivity_report is None or sensitivity_report["audit_passed"])
+        and (ablation_report is None or ablation_report["audit_passed"]),
         "source_hashes_match_manifest": not hash_mismatches,
     }
     report["audit_passed"] = report["audit_passed"] and report["source_hashes_match_manifest"]

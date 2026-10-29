@@ -1,5 +1,19 @@
 {
   "audit_passed": true,
+  "component_ablation": {
+    "audit_passed": true,
+    "duplicate_method_scenario_records": [],
+    "expected_methods": [
+      "structured_no_verify",
+      "checker_only",
+      "repair_only",
+      "vcrisp"
+    ],
+    "incomplete_scenarios": {},
+    "record_count": 19200,
+    "scenario_count": 4800,
+    "source": "results/episodes_component_ablation.csv"
+  },
   "main": {
     "audit_passed": true,
     "duplicate_method_scenario_records": [],

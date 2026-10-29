@@ -6,6 +6,7 @@ import unittest
 from unittest.mock import patch
 
 from simulator import (
+    ABLATION_METHODS,
     MAX_PREDISPATCH_REPAIRS,
     MAX_RUNTIME_RECOVERY_ATTEMPTS,
     METHODS,
@@ -15,6 +16,7 @@ from simulator import (
     World,
     base_plan,
     build_scenarios,
+    candidate_error_for,
     compiler_reason,
     run_benchmark,
     run_episode,
@@ -38,6 +40,44 @@ class SimulatorTests(unittest.TestCase):
         for scenario in scenarios:
             observed = {row["method"] for row in records if row["scenario_id"] == scenario.scenario_id}
             self.assertEqual(observed, set(METHODS))
+
+    def test_ablation_methods_share_candidate_errors(self) -> None:
+        scenarios = build_scenarios(range(1, 2), 1, 0.20, include_disturbances=True)
+        records = run_benchmark(scenarios, methods=ABLATION_METHODS)
+        for scenario in scenarios:
+            matched = [row for row in records if row["scenario_id"] == scenario.scenario_id]
+            self.assertEqual({row["method"] for row in matched}, set(ABLATION_METHODS))
+            self.assertEqual(len({row["candidate_error"] for row in matched}), 1)
+
+    def test_initial_checker_avoids_known_candidate_rejection(self) -> None:
+        scenario = next(
+            Scenario(
+                scenario_id=f"checker-{seed}",
+                seed=seed,
+                scenario_kind="component_ablation",
+                complexity="extended",
+                disturbance="none",
+                semantic_error_rate=1.0,
+            )
+            for seed in range(1, 10000)
+            if candidate_error_for(
+                Scenario(
+                    scenario_id=f"checker-{seed}",
+                    seed=seed,
+                    scenario_kind="component_ablation",
+                    complexity="extended",
+                    disturbance="none",
+                    semantic_error_rate=1.0,
+                )
+            )
+            == "wrong_order"
+        )
+        unverified = run_episode("structured_no_verify", scenario)
+        checker_only = run_episode("checker_only", scenario)
+        self.assertGreater(unverified["modeled_constraint_rejections"], 0)
+        self.assertEqual(checker_only["modeled_constraint_rejections"], 0)
+        self.assertTrue(unverified["success"])
+        self.assertTrue(checker_only["success"])
 
     def test_vcrisp_has_no_modeled_constraint_rejection_attempts(self) -> None:
         scenarios = build_scenarios(range(1, 5), 2, 0.30, include_disturbances=True)

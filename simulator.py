@@ -24,6 +24,19 @@ METHODS = (
     "vcrisp",
 )
 
+# The component ablation uses the same generated scenarios and candidate plans
+# as the main benchmark. The two factors are initial pre-dispatch checking and
+# verification of a suffix after a runtime event.
+ABLATION_METHODS = (
+    "structured_no_verify",
+    "checker_only",
+    "repair_only",
+    "vcrisp",
+)
+CANDIDATE_METHODS = frozenset(
+    {"semantic_direct", "structured_no_verify", "checker_only", "repair_only", "vcrisp"}
+)
+
 COMPLEXITIES = ("basic", "standard", "extended")
 DISTURBANCES = (
     "none",
@@ -532,6 +545,52 @@ def verify_and_repair(
     return None
 
 
+def check_then_rebuild(
+    plan: Sequence[Action],
+    world: World,
+    complexity: str,
+    metrics: Metrics,
+    trace: Optional[List[Dict[str, object]]] = None,
+) -> List[Action]:
+    """Run the initial checker, then rebuild without verifying the replacement.
+
+    This is the checker-only arm of the component ablation. It preserves a
+    valid candidate prefix but intentionally does not verify the replacement
+    suffix, separating detection before dispatch from verified suffix repair.
+    """
+
+    sim = copy.deepcopy(world)
+    for index, action in enumerate(plan):
+        reason = compiler_reason(action) or check_action(sim, action)
+        if reason:
+            metrics.predispatch_repair_triggers += 1
+            metrics.current_state_recipe_rebuilds += 1
+            if trace is not None:
+                trace.append(
+                    {
+                        "stage": "predispatch_check_then_rebuild",
+                        "reason": reason,
+                        "invalid_action": serialize_plan([action])[0],
+                        "repair_scope": "current_state_recipe",
+                    }
+                )
+            return list(plan[:index]) + remaining_plan(sim, complexity)
+        apply_action(sim, action)
+    if goal_satisfied(sim):
+        return list(plan)
+    metrics.predispatch_repair_triggers += 1
+    metrics.current_state_recipe_rebuilds += 1
+    if trace is not None:
+        trace.append(
+            {
+                "stage": "predispatch_check_then_rebuild",
+                "reason": "goal_not_reached_after_candidate",
+                "repair_scope": "append_missing_goal_suffix",
+            }
+        )
+    return list(plan) + remaining_plan(sim, complexity)
+
+
 def compile_plan(plan: Sequence[Action]) -> Optional[str]:
     for action in plan:
         reason = compiler_reason(action)
@@ -542,7 +601,7 @@ def compile_plan(plan: Sequence[Action]) -> Optional[str]:
 
 def initial_plan_for(method: str, scenario: Scenario, metrics: Metrics) -> List[Action]:
     nominal = base_plan(scenario.complexity)
-    if method in {"semantic_direct", "structured_no_verify", "vcrisp"}:
+    if method in CANDIDATE_METHODS:
         metrics.candidate_error = candidate_error_for(scenario)
         return perturb_plan(nominal, metrics.candidate_error)
     metrics.candidate_error = "none"
@@ -567,7 +626,7 @@ def run_episode(
 ) -> Dict[str, object]:
     """Run one matched episode and return a flat raw-log record."""
 
-    if method not in METHODS:
+    if method not in {*METHODS, *ABLATION_METHODS}:
         raise ValueError(f"Unknown method: {method}")
     world = make_initial_world(scenario)
     metrics = Metrics()
@@ -598,7 +657,11 @@ def run_episode(
             trace.append(
                 {"stage": "verification_authorized", "plan": serialize_plan(plan)}
             )
-    elif method == "structured_no_verify":
+    elif method == "checker_only":
+        verify_start = time.perf_counter()
+        plan = check_then_rebuild(plan, world, scenario.complexity, metrics, trace)
+        metrics.verification_cpu_ms += (time.perf_counter() - verify_start) * 1000.0
+    elif method in {"structured_no_verify", "repair_only"}:
         compile_problem = compile_plan(plan)
         if compile_problem:
             metrics.predispatch_repair_triggers += 1
@@ -638,7 +701,13 @@ def run_episode(
             # not an executed physical or safety violation.
             metrics.modeled_constraint_rejections += 1
 
-        recoverable = method in {"classical_global", "structured_no_verify", "vcrisp"}
+        recoverable = method in {
+            "classical_global",
+            "structured_no_verify",
+            "checker_only",
+            "repair_only",
+            "vcrisp",
+        }
         if not recoverable or metrics.recovery_attempts >= MAX_RUNTIME_RECOVERY_ATTEMPTS:
             metrics.human_intervention = 1
             metrics.terminal_reason = reason
@@ -649,7 +718,7 @@ def run_episode(
             break
 
         metrics.recovery_attempts += 1
-        if method == "vcrisp":
+        if method in {"repair_only", "vcrisp"}:
             # The replacement is a suffix from the current state, preserving
             # the completed prefix and avoiding a full episode restart.
             metrics.verified_suffix_repairs += 1
@@ -799,11 +868,13 @@ def build_scenarios(
     return scenarios
 
 
-def run_benchmark(scenarios: Sequence[Scenario]) -> List[Dict[str, object]]:
+def run_benchmark(
+    scenarios: Sequence[Scenario], methods: Sequence[str] = METHODS
+) -> List[Dict[str, object]]:
     """Run each method on every scenario; pairing is by scenario_id."""
 
     records: List[Dict[str, object]] = []
     for scenario in scenarios:
-        for method in METHODS:
+        for method in methods:
             records.append(run_episode(method, scenario))
     return records

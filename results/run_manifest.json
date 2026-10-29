@@ -1,6 +1,36 @@
 {
   "benchmark": "synthetic discrete-event assembly benchmark",
-  "created_utc": "2026-10-29T13:03:44.979160+00:00",
+  "component_ablation": {
+    "initial_predispatch_check": {
+      "disabled": [
+        "structured_no_verify",
+        "repair_only"
+      ],
+      "enabled": [
+        "checker_only",
+        "vcrisp"
+      ]
+    },
+    "methods": [
+      "structured_no_verify",
+      "checker_only",
+      "repair_only",
+      "vcrisp"
+    ],
+    "record_count": 19200,
+    "runtime_suffix_verification": {
+      "disabled": [
+        "structured_no_verify",
+        "checker_only"
+      ],
+      "enabled": [
+        "repair_only",
+        "vcrisp"
+      ]
+    },
+    "scenario_count": 4800
+  },
+  "created_utc": "2026-10-29T13:44:09.992283+00:00",
   "main": {
     "base_semantic_error_rate": 0.2,
     "candidate_profile_increment": 0.1,
@@ -67,15 +97,15 @@
     "record_count": 12000
   },
   "source_sha256": {
-    "analyze_results.py": "2cb50eec3bae6122e3d57b4fcfb143de8c35d552d29bf9d9e34a8816dc11d7b9",
-    "audit_results.py": "bff70ab285e966da9d883604de8203fa7c318860eb2bab3a71c193a5e29d05d9",
+    "analyze_results.py": "95ba90d07c0f1c879f9b0955d8deb91f2a891229eafd6009556b358060abd012",
+    "audit_results.py": "405938ebaca3779940f1a77cfd72463df6f91e5c617b0a593ba67f45157ac140",
     "figures/audit_panel_alignment.py": "217a2b148f03976f8a98dd65baef12ae7f72d4a9e462dd557edfd44953843d7a",
     "figures/make_figure1_composite.py": "f3d503874ad4c7a09eeaaa26c9815c436d2d6addd753fce7383f1c34331267eb",
     "figures/make_publication_figures.py": "b50e35aed96f21f404499d333516446d2fdf6acfe3ec6ecc2745402d3cd272dd",
     "generate_qualitative_trace.py": "f22b2933f6cae38c8509c075fc196fba74de526aa9e9cee75580ecde18e9d8b1",
     "make_release_manifest.py": "e53994e9f8539e8316f248a1c3099ddbd97dd61a46c274dd0f355601bbe0fb3f",
-    "run_experiments.py": "beef696612aa3fb7e916f42cfcbd35a964f45c16871a02487f3c402786a02405",
-    "simulator.py": "cacd6c6e29f3a55d9f54fa2a6a135c1390ffedba5739650a7f2fb84f51170012",
-    "test_simulator.py": "f4bb6618abe9888b98f507bf9330bc421dd88ba1e17a1df3546a0e9f6679af08"
+    "run_experiments.py": "0c5e60ac15aab0e3a6c5126ecd16acf69e742ddcef3b742f8ed274b3bcab0f64",
+    "simulator.py": "2a99611a0833d6242b0ef96b51e5ff7cb379b35f3fa2ca31e7dadbbf5f551943",
+    "test_simulator.py": "006e8889842f927d2318860ae357c9b2e26fdec398c53a56339b83f32d369f1f"
   }
 }
