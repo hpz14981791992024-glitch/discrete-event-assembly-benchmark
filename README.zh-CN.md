@@ -63,6 +63,16 @@ python3 audit_results.py --results-dir results_cpp
 
 Python 负责场景生成、执行、修复和分析。验证和调度使用同一个选定的检查器。C++ 后端不是独立安全验证器。运行清单会记录后端、编译器和动态库哈希。C++ 运行需要新建或空的输出目录。
 
+`results_cpp/` 保存与 v1.0.2 相同场景的 C++ 检查器运行记录。`compare_backends.py` 用于对比非计时字段。`results_model_mismatch/` 保存 16 个手工构造的检查器与守卫失配案例。复现失配实验及跨语言对照：
+
+```bash
+python3 -m unittest -v test_compare_backends.py test_model_mismatch_experiment.py
+python3 model_mismatch_experiment.py --output-dir NEW_EMPTY_DIRECTORY
+python3 compare_backends.py PATH_TO_V1_0_2_RESULTS results_cpp --output comparison.json
+```
+
+`robot_sim/` 保存独立的 MuJoCo 平面定位实验。该实验没有运行 V-CRISP。安装与复现方法见 [robot_sim/README.md](robot_sim/README.md)。
+
 主实验包含 4,800 个配对场景和 24,000 条方法记录。它使用 20 个随机种子，每个分层有 10 个重置回合。实验覆盖三种配方规模、两种无扰动候选错误配置和六种扰动类型。组件消融在同一批场景上产生 19,200 条记录。敏感性实验包含 2,400 个场景和 12,000 条记录。候选错误率分别为 0.05、0.10、0.20 和 0.30。
 
 ## 查看结果
@@ -87,10 +97,12 @@ Python 负责场景生成、执行、修复和分析。验证和调度使用同�
 
 引用本仓库时请使用 `CITATION.cff`。[v1.0.2 归档，DOI 10.5281/zenodo.23768078](https://doi.org/10.5281/zenodo.23768078) 包含组件消融结果。该版本使用 Python 检查器，早于 C++ 实现。较早的 [v1.0.1 归档](https://doi.org/10.5281/zenodo.23766150) 不包含组件消融实验。[概念 DOI](https://doi.org/10.5281/zenodo.23766149) 指向 Zenodo 中的最新版本。
 
+下一版本 v1.0.3 增加 C++ 实验、检查器与守卫失配案例，以及独立的 MuJoCo 定位实验。Zenodo 完成归档后会补充版本 DOI。
+
 在完整重跑实验并生成图件后，可以用下面的命令生成发布校验清单：
 
 ```bash
-python3 make_release_manifest.py
+python3 make_extended_manifest.py
 ```
 
 `SHA256SUMS` 覆盖可执行源代码、权威结果、正式图件、许可证和发布元数据。

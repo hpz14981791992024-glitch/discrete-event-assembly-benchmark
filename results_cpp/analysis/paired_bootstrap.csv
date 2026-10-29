@@ -1,0 +1,15 @@
+subset,comparison,metric,paired_episodes,mean_difference,ci95_low,ci95_high
+all,vcrisp_minus_structured_no_verify,success,4800,0.0016666666666666668,0.000625,0.002916666666666667
+all,vcrisp_minus_structured_no_verify,modeled_constraint_rejections,4800,-0.42041666666666666,-0.4370833333333333,-0.40499479166666674
+all,vcrisp_minus_structured_no_verify,predispatch_repair_triggers,4800,0.5410416666666666,0.521875,0.5602083333333333
+all,vcrisp_minus_structured_no_verify,human_intervention,4800,-0.0016666666666666668,-0.002921875,-0.000625
+all,vcrisp_minus_structured_no_verify,successful_virtual_makespan,4792,0.022203672787979984,0.018363939899833072,0.0260434056761269
+all,vcrisp_minus_structured_no_verify,verified_suffix_repairs,4800,1.3354166666666667,1.3110416666666667,1.3610416666666667
+all,vcrisp_minus_structured_no_verify,current_state_recipe_rebuilds,4800,-1.213125,-1.23625,-1.191453125
+disturbance,vcrisp_minus_structured_no_verify,success,3600,0.0022222222222222222,0.0008333333333333334,0.0038888888888888888
+disturbance,vcrisp_minus_structured_no_verify,modeled_constraint_rejections,3600,-0.4775,-0.49583333333333335,-0.45916666666666667
+disturbance,vcrisp_minus_structured_no_verify,predispatch_repair_triggers,3600,0.6383333333333333,0.6163888888888889,0.6616666666666666
+disturbance,vcrisp_minus_structured_no_verify,human_intervention,3600,-0.0022222222222222222,-0.0038888888888888888,-0.0008333333333333334
+disturbance,vcrisp_minus_structured_no_verify,successful_virtual_makespan,3592,0.02093541202672608,0.016703786191536764,0.02516703786191539
+disturbance,vcrisp_minus_structured_no_verify,verified_suffix_repairs,3600,1.6788888888888889,1.655,1.702784722222222
+disturbance,vcrisp_minus_structured_no_verify,current_state_recipe_rebuilds,3600,-1.5158333333333334,-1.5352847222222221,-1.4975

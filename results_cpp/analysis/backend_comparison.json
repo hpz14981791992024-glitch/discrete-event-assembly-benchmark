@@ -1,0 +1,42 @@
+{
+  "files": {
+    "episodes_component_ablation.csv": {
+      "candidate_only": 0,
+      "candidate_records": 19200,
+      "candidate_sha256": "8ccfb2661e671568b1ed1d6b08447fe9079eb77aa52e9ed8024b0ce5656df401",
+      "matched_keys": 19200,
+      "mismatch_examples": [],
+      "mismatched_records": 0,
+      "reference_only": 0,
+      "reference_records": 19200,
+      "reference_sha256": "0e371bd495b95aed4984804d13c5ff8767a4aec1637b2740ab75af1d18788c31"
+    },
+    "episodes_main.csv": {
+      "candidate_only": 0,
+      "candidate_records": 24000,
+      "candidate_sha256": "814a1166a083e6507d0d0f1e25f4a83b8f564a19af99cea5bb7741a530c4240e",
+      "matched_keys": 24000,
+      "mismatch_examples": [],
+      "mismatched_records": 0,
+      "reference_only": 0,
+      "reference_records": 24000,
+      "reference_sha256": "6458ba1c9dd105256f9e31a74b60fd20c2f6eaa1b1e4c05f4c0014761ab2e965"
+    },
+    "episodes_sensitivity.csv": {
+      "candidate_only": 0,
+      "candidate_records": 12000,
+      "candidate_sha256": "3ede11b6de239f156f65d9beee12c68d5902bf7869f5bd1a0389d7d53faeebd8",
+      "matched_keys": 12000,
+      "mismatch_examples": [],
+      "mismatched_records": 0,
+      "reference_only": 0,
+      "reference_records": 12000,
+      "reference_sha256": "0d37ea7163ccb259e878e2b64646b7547bf6c0595989b272f974c5d33d186449"
+    }
+  },
+  "ignored_fields": [
+    "planning_cpu_ms",
+    "verification_cpu_ms"
+  ],
+  "passed": true
+}

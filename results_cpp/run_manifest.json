@@ -1,0 +1,120 @@
+{
+  "benchmark": "synthetic discrete-event assembly benchmark",
+  "component_ablation": {
+    "initial_predispatch_check": {
+      "disabled": [
+        "structured_no_verify",
+        "repair_only"
+      ],
+      "enabled": [
+        "checker_only",
+        "vcrisp"
+      ]
+    },
+    "methods": [
+      "structured_no_verify",
+      "checker_only",
+      "repair_only",
+      "vcrisp"
+    ],
+    "record_count": 19200,
+    "runtime_suffix_verification": {
+      "disabled": [
+        "structured_no_verify",
+        "checker_only"
+      ],
+      "enabled": [
+        "repair_only",
+        "vcrisp"
+      ]
+    },
+    "scenario_count": 4800
+  },
+  "created_utc": "2026-10-29T14:54:26.538907+00:00",
+  "main": {
+    "base_semantic_error_rate": 0.2,
+    "candidate_profile_increment": 0.1,
+    "disturbance_semantic_error_rate": 0.2,
+    "episodes_per_stratum": 10,
+    "evaluation_seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "max_predispatch_repairs": 3,
+    "max_runtime_recovery_attempts": 3,
+    "record_count": 24000,
+    "scenario_count": 4800
+  },
+  "methods": [
+    "rule_script",
+    "classical_global",
+    "semantic_direct",
+    "structured_no_verify",
+    "vcrisp"
+  ],
+  "runtime": {
+    "action_checker": {
+      "abi_version": 1,
+      "backend": "cpp",
+      "compiler": "Apple LLVM 21.0.0 (clang-2100.1.1.101)",
+      "library_file": "action_checker.so",
+      "library_sha256": "edd95e6355aa0625e93eee78899258a49685b8a2833c7f69b8a08b6ce5a9d136"
+    },
+    "analysis_dependencies": {
+      "matplotlib": "3.9.4",
+      "numpy": "2.0.2"
+    },
+    "machine": "arm64",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "python_version": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]"
+  },
+  "scope": {
+    "claim_boundary": "Results evaluate an abstract policy architecture under declared synthetic constraints, disturbances, and candidate-plan errors. The pre-dispatch checker shares modeled semantics with the dispatch guard.",
+    "is_physical_robot_experiment": false,
+    "uses_geometric_tamp_or_collision_checker": false,
+    "uses_real_llm_or_vlm": false
+  },
+  "sensitivity": {
+    "candidate_profile_increment": 0.0,
+    "evaluation_seeds_per_rate": 10,
+    "rates": [
+      0.05,
+      0.1,
+      0.2,
+      0.3
+    ],
+    "record_count": 12000
+  },
+  "source_sha256": {
+    "analyze_results.py": "95ba90d07c0f1c879f9b0955d8deb91f2a891229eafd6009556b358060abd012",
+    "audit_results.py": "405938ebaca3779940f1a77cfd72463df6f91e5c617b0a593ba67f45157ac140",
+    "cpp/action_checker.cpp": "d51da15672458b15fc31230247cae1b2deb833b294e52918a3136657d4c910c8",
+    "cpp_checker.py": "6134c2a478ff95afc4782cede470185ef0e856719f9504745ce026ff9063b8db",
+    "figures/audit_panel_alignment.py": "217a2b148f03976f8a98dd65baef12ae7f72d4a9e462dd557edfd44953843d7a",
+    "figures/make_figure1_composite.py": "f3d503874ad4c7a09eeaaa26c9815c436d2d6addd753fce7383f1c34331267eb",
+    "figures/make_publication_figures.py": "b50e35aed96f21f404499d333516446d2fdf6acfe3ec6ecc2745402d3cd272dd",
+    "generate_qualitative_trace.py": "f22b2933f6cae38c8509c075fc196fba74de526aa9e9cee75580ecde18e9d8b1",
+    "make_release_manifest.py": "c98fc65535ac5a7904f636ef46f0e1785b7d634b5153187fa6db74dd5c5e5be9",
+    "run_experiments.py": "cee19d2ff9955b9cb411058bb4f7a3daf71c92bc51e569a7241122973634405e",
+    "simulator.py": "d17927f83e1c183dde3aa7689441d8774bdbefae8cb20a53626a3ffc42db9af6",
+    "test_simulator.py": "006e8889842f927d2318860ae357c9b2e26fdec398c53a56339b83f32d369f1f"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "mujoco_version": "3.3.7",
+  "numpy_version": "2.0.2",
+  "python": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "seed": 20261029,
+  "scenarios": 300,
+  "records": 600,
+  "timestep_seconds": 0.002,
+  "segment_steps": 500,
+  "settle_steps": 500,
+  "target_tolerance_m": 0.02,
+  "collision_samples_per_radian": 50,
+  "script_sha256": "442fde2bb069feb716762c43f2980589e88d238effa0ef81be59ada52f903f26",
+  "scope": "planar arm reaching; no grasp, physical cell, or industrial safety validation"
+}

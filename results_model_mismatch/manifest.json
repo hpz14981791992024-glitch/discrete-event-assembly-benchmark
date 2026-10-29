@@ -1,0 +1,25 @@
+{
+  "created_utc": "2026-10-29T15:19:00.917388+00:00",
+  "description": "Hand-constructed deterministic checker/guard model mismatch cases",
+  "cases": 16,
+  "records": 32,
+  "mutation_reasons": {
+    "fixture": "fixture_not_verified",
+    "tool": "fasten_requires_driver",
+    "quality": "quality_not_passed"
+  },
+  "random_seed": null,
+  "python": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "source_sha256": {
+    "simulator.py": "d17927f83e1c183dde3aa7689441d8774bdbefae8cb20a53626a3ffc42db9af6",
+    "model_mismatch_experiment.py": "aa00d3424f37d842725f74795ce3404d7f6b53a1038fff6b041b403fd9fffe45",
+    "test_model_mismatch_experiment.py": "efbd2e11efdb6de65f03bef8dc5e0b10d4261157209665935deed64489df8707"
+  },
+  "notes": [
+    "Matched and mismatched conditions share each initial state and candidate.",
+    "Only the checker suppresses a single modeled reason; guard stays unchanged.",
+    "Each case is deterministic and hand constructed, not a random replicate.",
+    "Guard rejections occur before modeled state changes and are not physical violations."
+  ]
+}

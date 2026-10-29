@@ -1,0 +1,31 @@
+{
+  "paired_scenarios": 300,
+  "bootstrap_resamples": 2000,
+  "bootstrap_seed": 20261029,
+  "checked_minus_direct_success_rate": 0.2733333333333333,
+  "ci95": [
+    0.22333333333333333,
+    0.3233333333333333
+  ],
+  "policies": {
+    "direct": {
+      "statuses": {
+        "contact": 223,
+        "success": 77
+      },
+      "successes": 77,
+      "contact_episodes": 223,
+      "median_planning_elapsed_ms": 0.0004160000002251252
+    },
+    "checked_waypoints": {
+      "statuses": {
+        "success": 159,
+        "no_candidate_path": 131,
+        "contact": 10
+      },
+      "successes": 159,
+      "contact_episodes": 10,
+      "median_planning_elapsed_ms": 15.233250000000087
+    }
+  }
+}

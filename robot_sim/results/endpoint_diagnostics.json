@@ -1,0 +1,169 @@
+{
+  "mujoco_version": "3.3.7",
+  "diagnostic_script_sha256": "7342aab53a8bf879f9561cea825e38b25bdda3e6f7e70c8b38aab453e8305167",
+  "experiment_script_sha256": "442fde2bb069feb716762c43f2980589e88d238effa0ef81be59ada52f903f26",
+  "episodes_sha256": "a1d949f11ddd5b7a93806e03fab31edd0fa18e57df9a78f07abb1adc6d61de15",
+  "endpoint_status_counts": [
+    {
+      "start_contact": false,
+      "goal_contact": false,
+      "policy": "checked_waypoints",
+      "status": "contact",
+      "count": 10
+    },
+    {
+      "start_contact": false,
+      "goal_contact": false,
+      "policy": "checked_waypoints",
+      "status": "no_candidate_path",
+      "count": 31
+    },
+    {
+      "start_contact": false,
+      "goal_contact": false,
+      "policy": "checked_waypoints",
+      "status": "success",
+      "count": 159
+    },
+    {
+      "start_contact": false,
+      "goal_contact": false,
+      "policy": "direct",
+      "status": "contact",
+      "count": 123
+    },
+    {
+      "start_contact": false,
+      "goal_contact": false,
+      "policy": "direct",
+      "status": "success",
+      "count": 77
+    },
+    {
+      "start_contact": false,
+      "goal_contact": true,
+      "policy": "checked_waypoints",
+      "status": "no_candidate_path",
+      "count": 100
+    },
+    {
+      "start_contact": false,
+      "goal_contact": true,
+      "policy": "direct",
+      "status": "contact",
+      "count": 100
+    }
+  ],
+  "checked_execution_contact_replays": [
+    {
+      "scenario": 58,
+      "segments": 2,
+      "start_contact": false,
+      "goal_contact": false,
+      "contact_steps": 28,
+      "first_contact": {
+        "time_seconds": 0.6060000000000004,
+        "max_joint_tracking_error_rad": 0.03993835201049989
+      }
+    },
+    {
+      "scenario": 66,
+      "segments": 2,
+      "start_contact": false,
+      "goal_contact": false,
+      "contact_steps": 12,
+      "first_contact": {
+        "time_seconds": 1.5600000000000012,
+        "max_joint_tracking_error_rad": 0.01651676868655816
+      }
+    },
+    {
+      "scenario": 69,
+      "segments": 2,
+      "start_contact": false,
+      "goal_contact": false,
+      "contact_steps": 11,
+      "first_contact": {
+        "time_seconds": 1.5440000000000011,
+        "max_joint_tracking_error_rad": 0.024104510728187867
+      }
+    },
+    {
+      "scenario": 71,
+      "segments": 2,
+      "start_contact": false,
+      "goal_contact": false,
+      "contact_steps": 17,
+      "first_contact": {
+        "time_seconds": 1.6880000000000013,
+        "max_joint_tracking_error_rad": 0.05174311676702578
+      }
+    },
+    {
+      "scenario": 136,
+      "segments": 1,
+      "start_contact": false,
+      "goal_contact": false,
+      "contact_steps": 4,
+      "first_contact": {
+        "time_seconds": 0.6460000000000005,
+        "max_joint_tracking_error_rad": 0.03232833638612109
+      }
+    },
+    {
+      "scenario": 159,
+      "segments": 2,
+      "start_contact": false,
+      "goal_contact": false,
+      "contact_steps": 1,
+      "first_contact": {
+        "time_seconds": 1.398000000000001,
+        "max_joint_tracking_error_rad": 0.03417133761128399
+      }
+    },
+    {
+      "scenario": 257,
+      "segments": 2,
+      "start_contact": false,
+      "goal_contact": false,
+      "contact_steps": 12,
+      "first_contact": {
+        "time_seconds": 1.9240000000000015,
+        "max_joint_tracking_error_rad": 0.06799817122543317
+      }
+    },
+    {
+      "scenario": 263,
+      "segments": 1,
+      "start_contact": false,
+      "goal_contact": false,
+      "contact_steps": 16,
+      "first_contact": {
+        "time_seconds": 1.0460000000000007,
+        "max_joint_tracking_error_rad": 0.017374572865529014
+      }
+    },
+    {
+      "scenario": 280,
+      "segments": 2,
+      "start_contact": false,
+      "goal_contact": false,
+      "contact_steps": 11,
+      "first_contact": {
+        "time_seconds": 1.9500000000000015,
+        "max_joint_tracking_error_rad": 0.053511738894778116
+      }
+    },
+    {
+      "scenario": 283,
+      "segments": 2,
+      "start_contact": false,
+      "goal_contact": false,
+      "contact_steps": 2,
+      "first_contact": {
+        "time_seconds": 1.9020000000000015,
+        "max_joint_tracking_error_rad": 0.04070333363953238
+      }
+    }
+  ]
+}

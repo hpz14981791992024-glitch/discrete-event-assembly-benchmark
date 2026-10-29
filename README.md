@@ -87,6 +87,20 @@ verification and dispatch use the selected checker. The C++ backend is not an
 independent safety verifier. The run manifest records the backend, compiler,
 and library hash. C++ runs need a new or empty output directory.
 
+`results_cpp/` contains a C++ checker run on the same scenarios as v1.0.2.
+`compare_backends.py` compares its non-timing fields with the archived Python
+records. `results_model_mismatch/` contains 16 hand-built cases with paired
+checker and guard rules. Run the latter with:
+
+```bash
+python3 -m unittest -v test_compare_backends.py test_model_mismatch_experiment.py
+python3 model_mismatch_experiment.py --output-dir NEW_EMPTY_DIRECTORY
+python3 compare_backends.py PATH_TO_V1_0_2_RESULTS results_cpp --output comparison.json
+```
+
+`robot_sim/` contains a separate MuJoCo planar reaching comparison. It does not
+run V-CRISP. See [robot_sim/README.md](robot_sim/README.md) for setup and scope.
+
 The main run has 4,800 matched scenarios and 24,000 method records. It uses
 20 seeds and 10 reset episodes per stratum. It covers three recipe sizes, two
 candidate-error profiles without disturbances, and six disturbance types.
@@ -128,6 +142,9 @@ robot simulation or physical experiment.
 Use `CITATION.cff` to cite the repository. The archive containing the component
 ablation is [v1.0.2, DOI 10.5281/zenodo.23768078](https://doi.org/10.5281/zenodo.23768078).
 That archive predates the C++ checker and contains the Python implementation.
+The next release, v1.0.3, adds the C++ run, checker/guard mismatch cases, and a
+separate MuJoCo reaching experiment. Its version DOI will be recorded after
+Zenodo archives it.
 The earlier [v1.0.1 archive](https://doi.org/10.5281/zenodo.23766150) does not
 include that ablation. The [concept DOI](https://doi.org/10.5281/zenodo.23766149)
 points to the latest Zenodo version.
@@ -135,7 +152,7 @@ points to the latest Zenodo version.
 To create a checksum manifest after a full rerun and figure regeneration:
 
 ```bash
-python3 make_release_manifest.py
+python3 make_extended_manifest.py
 ```
 
 `SHA256SUMS` covers the release files, including executable source,

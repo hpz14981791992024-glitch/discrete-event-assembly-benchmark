@@ -1,9 +1,9 @@
 {
   "title": "V-CRISP Synthetic Discrete-Event Assembly Benchmark",
-  "description": "Reproducible artifact for a deliberately limited synthetic discrete-event assembly benchmark. The release contains executable source code, authoritative per-episode records, analysis tables, publication figures, formal citation metadata, and SHA-256 checksums. It evaluates an abstract finite-state model only; it is not evidence of physical-robot performance, perception, geometric task and motion planning, independent safety verification, or deployment readiness. Executable source code is licensed under Apache-2.0. Synthetic benchmark records and publication figures are licensed under CC-BY-4.0. The unpublished manuscript is not included in this artifact.",
+  "description": "Code and data for a synthetic assembly benchmark. Includes Python and C++ checker runs, a targeted checker/guard mismatch test, and a separate MuJoCo planar reaching experiment. The MuJoCo experiment does not execute V-CRISP or model a physical assembly cell. Source code is licensed under Apache-2.0. Generated records and publication figures are licensed under CC-BY-4.0. The unpublished manuscript is not included.",
   "upload_type": "software",
   "license": "Apache-2.0",
-  "version": "v1.0.2",
+  "version": "v1.0.3",
   "creators": [
     {
       "name": "Hong, Pengzhi",

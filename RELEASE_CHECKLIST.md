@@ -20,7 +20,7 @@ recreate an archived tag.
    figures.
 3. Update `CITATION.cff`, `.zenodo.json`, README files, version numbers, and
    license metadata for the new release. Do not guess its version DOI.
-4. Run `python3 make_release_manifest.py`, review `SHA256SUMS`, commit all
+4. Run `python3 make_extended_manifest.py`, review `SHA256SUMS`, commit all
    intended changes, then create and push a new immutable Git tag.
 5. After Zenodo has archived the new tag, verify its landing page, files,
    version, creators, repository URL, licenses, and DOI. Only then add that
@@ -36,6 +36,7 @@ therefore does not contain the DOI in `CITATION.cff`.
 python3 -m pip install -r requirements.txt
 python3 -m unittest -v test_simulator.py
 python3 -m unittest -v test_cpp_checker.py
+python3 -m unittest -v test_compare_backends.py test_model_mismatch_experiment.py
 python3 run_experiments.py --output-dir results
 python3 analyze_results.py --results-dir results
 python3 audit_results.py --results-dir results

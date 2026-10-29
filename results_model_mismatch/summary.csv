@@ -1,0 +1,13 @@
+mutation,violated,condition,cases,initial_guard_invalid,checker_misses_initial_invalid,invalid_first_action_retained,guard_rejections,successes
+fixture,False,matched,2,0,0,0,0,2
+fixture,False,mismatch,2,0,0,0,0,2
+fixture,True,matched,2,2,0,0,0,2
+fixture,True,mismatch,2,2,2,2,2,2
+tool,False,matched,3,0,0,0,0,3
+tool,False,mismatch,3,0,0,0,0,3
+tool,True,matched,3,3,0,0,0,3
+tool,True,mismatch,3,3,3,3,3,3
+quality,False,matched,3,0,0,0,0,3
+quality,False,mismatch,3,0,0,0,0,3
+quality,True,matched,3,3,0,0,0,3
+quality,True,mismatch,3,3,3,3,3,3
