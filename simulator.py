@@ -280,7 +280,7 @@ def compiler_reason(action: Action) -> Optional[str]:
     return None
 
 
-def check_action(world: World, action: Action) -> Optional[str]:
+def check_action_python(world: World, action: Action) -> Optional[str]:
     """Return a modeled constraint failure, or None when the action is enabled."""
 
     schema_problem = compiler_reason(action)
@@ -350,6 +350,41 @@ def check_action(world: World, action: Action) -> Optional[str]:
             return "rework_not_authorized"
         return None
     return "unknown_operator"
+
+
+_action_checker = check_action_python
+
+
+def configure_action_checker(backend: str, library_path: Optional[str] = None) -> None:
+    """Select the action checker used by both verification and dispatch."""
+
+    global _action_checker
+    if backend == "python":
+        if library_path is not None:
+            raise ValueError("library_path is only supported with the cpp backend")
+        _action_checker = check_action_python
+    elif backend == "cpp":
+        if not library_path:
+            raise ValueError("cpp backend requires a path to the compiled checker library")
+        from cpp_checker import CppActionChecker
+
+        _action_checker = CppActionChecker(library_path)
+    else:
+        raise ValueError(f"Unknown action checker backend: {backend}")
+
+
+def check_action(world: World, action: Action) -> Optional[str]:
+    """Check an action using the configured backend."""
+
+    return _action_checker(world, action)
+
+
+def get_action_checker_metadata() -> Dict[str, object]:
+    """Describe the selected checker, including the C++ build if applicable."""
+
+    if _action_checker is check_action_python:
+        return {"backend": "python"}
+    return dict(_action_checker.metadata)
 
 
 def apply_action(world: World, action: Action) -> None:

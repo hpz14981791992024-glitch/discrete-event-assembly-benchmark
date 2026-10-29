@@ -3,6 +3,11 @@
 __pycache__/
 *.py[cod]
 
+# Local C++ build and independent mixed-language experiment outputs
+build/
+results_cpp/
+results_cpp_20261029/
+
 # Non-authoritative experimental outputs
 results_smoke/
 results_pre_rerun_20261028/

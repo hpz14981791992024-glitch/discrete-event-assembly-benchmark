@@ -35,6 +35,7 @@ therefore does not contain the DOI in `CITATION.cff`.
 ```bash
 python3 -m pip install -r requirements.txt
 python3 -m unittest -v test_simulator.py
+python3 -m unittest -v test_cpp_checker.py
 python3 run_experiments.py --output-dir results
 python3 analyze_results.py --results-dir results
 python3 audit_results.py --results-dir results

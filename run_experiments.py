@@ -23,6 +23,8 @@ from simulator import (
     MAX_RUNTIME_RECOVERY_ATTEMPTS,
     METHODS,
     build_scenarios,
+    configure_action_checker,
+    get_action_checker_metadata,
     run_benchmark,
 )
 
@@ -48,7 +50,9 @@ def installed_package_version(package: str) -> str | None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=Path("results"))
+    parser.add_argument("--output-dir", type=Path)
+    parser.add_argument("--checker-backend", choices=("python", "cpp"), default="python")
+    parser.add_argument("--checker-library", type=Path)
     parser.add_argument("--seeds", type=int, default=20)
     parser.add_argument("--episodes-per-stratum", type=int, default=10)
     parser.add_argument("--semantic-error-rate", type=float, default=0.20)
@@ -56,7 +60,31 @@ def main() -> None:
     parser.add_argument("--skip-sensitivity", action="store_true")
     args = parser.parse_args()
 
-    output_dir = args.output_dir
+    if args.checker_backend == "cpp":
+        if args.output_dir is None:
+            parser.error("--checker-backend cpp requires a separate --output-dir")
+        output_path = args.output_dir.resolve()
+        results_path = Path("results").resolve()
+        if output_path == results_path or results_path in output_path.parents:
+            parser.error("the C++ backend requires an output directory other than results/")
+        if args.checker_library is None:
+            parser.error("--checker-backend cpp requires --checker-library")
+        if args.output_dir.exists() and (
+            not args.output_dir.is_dir() or any(args.output_dir.iterdir())
+        ):
+            parser.error("C++ output directory must be new or empty")
+    elif args.checker_library is not None:
+        parser.error("--checker-library requires --checker-backend cpp")
+
+    try:
+        configure_action_checker(
+            args.checker_backend,
+            str(args.checker_library.resolve()) if args.checker_library else None,
+        )
+    except (OSError, ValueError, RuntimeError) as exc:
+        parser.error(str(exc))
+
+    output_dir = args.output_dir or Path("results")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     main_scenarios = build_scenarios(
@@ -78,6 +106,11 @@ def main() -> None:
             "python_version": sys.version,
             "platform": platform.platform(),
             "machine": platform.machine(),
+            "action_checker": {
+                **get_action_checker_metadata(),
+                "library_file": args.checker_library.name if args.checker_library else None,
+                "library_sha256": sha256(args.checker_library) if args.checker_library else None,
+            },
             "analysis_dependencies": {
                 "numpy": installed_package_version("numpy"),
                 "matplotlib": installed_package_version("matplotlib"),
@@ -87,6 +120,8 @@ def main() -> None:
             source.as_posix(): sha256(source)
             for source in (
                 Path("simulator.py"),
+                Path("cpp_checker.py"),
+                Path("cpp/action_checker.cpp"),
                 Path("run_experiments.py"),
                 Path("analyze_results.py"),
                 Path("audit_results.py"),
