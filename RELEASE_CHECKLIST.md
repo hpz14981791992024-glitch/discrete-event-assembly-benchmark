@@ -1,7 +1,9 @@
 # Release Status and Checklist
 
 The current archived release is
-[`v1.0.2`](https://doi.org/10.5281/zenodo.23768078), which includes the main,
+[`v1.0.3`](https://doi.org/10.5281/zenodo.23770139). It adds C++ comparison,
+checker/guard mismatch cases, and a separate MuJoCo reaching experiment.
+[`v1.0.2`](https://doi.org/10.5281/zenodo.23768078) includes the main,
 sensitivity, and component-ablation records. The earlier
 [`v1.0.1`](https://doi.org/10.5281/zenodo.23766150) does not include the
 component ablation. The [concept DOI](https://doi.org/10.5281/zenodo.23766149)

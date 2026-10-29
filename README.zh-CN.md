@@ -97,7 +97,7 @@ python3 compare_backends.py PATH_TO_V1_0_2_RESULTS results_cpp --output comparis
 
 引用本仓库时请使用 `CITATION.cff`。[v1.0.2 归档，DOI 10.5281/zenodo.23768078](https://doi.org/10.5281/zenodo.23768078) 包含组件消融结果。该版本使用 Python 检查器，早于 C++ 实现。较早的 [v1.0.1 归档](https://doi.org/10.5281/zenodo.23766150) 不包含组件消融实验。[概念 DOI](https://doi.org/10.5281/zenodo.23766149) 指向 Zenodo 中的最新版本。
 
-下一版本 v1.0.3 增加 C++ 实验、检查器与守卫失配案例，以及独立的 MuJoCo 定位实验。Zenodo 完成归档后会补充版本 DOI。
+[v1.0.3，DOI 10.5281/zenodo.23770139](https://doi.org/10.5281/zenodo.23770139) 增加了 C++ 实验、检查器与守卫失配案例，以及独立的 MuJoCo 定位实验。
 
 在完整重跑实验并生成图件后，可以用下面的命令生成发布校验清单：
 

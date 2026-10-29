@@ -142,9 +142,9 @@ robot simulation or physical experiment.
 Use `CITATION.cff` to cite the repository. The archive containing the component
 ablation is [v1.0.2, DOI 10.5281/zenodo.23768078](https://doi.org/10.5281/zenodo.23768078).
 That archive predates the C++ checker and contains the Python implementation.
-The next release, v1.0.3, adds the C++ run, checker/guard mismatch cases, and a
-separate MuJoCo reaching experiment. Its version DOI will be recorded after
-Zenodo archives it.
+[v1.0.3, DOI 10.5281/zenodo.23770139](https://doi.org/10.5281/zenodo.23770139)
+adds the C++ run, checker/guard mismatch cases, and a separate MuJoCo reaching
+experiment.
 The earlier [v1.0.1 archive](https://doi.org/10.5281/zenodo.23766150) does not
 include that ablation. The [concept DOI](https://doi.org/10.5281/zenodo.23766149)
 points to the latest Zenodo version.
