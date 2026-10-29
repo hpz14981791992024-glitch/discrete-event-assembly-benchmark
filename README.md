@@ -2,22 +2,19 @@
 
 [简体中文](README.zh-CN.md)
 
-V-CRISP is a small, reproducible benchmark for studying plan checking and
-recovery in a synthetic assembly workflow. It compares several ways of
-handling an imperfect candidate plan after the modeled environment changes.
-The goal is to make the experimental logic easy to inspect, rerun, and adapt.
+This repository contains a finite-state assembly benchmark for comparing plan
+checking and recovery policies. It includes the simulator, episode records,
+analysis scripts, and figures from the reference run.
 
-The benchmark is intentionally narrow. It is a finite-state simulation, not a
-physical robot or factory study. It does not use LLMs, VLMs, ROS, perception,
-geometric motion planning, collision checking, or an independently validated
-safety model. Its results should therefore be read as evidence about the
-declared simulation only.
+The scenarios are synthetic. The benchmark has no physical robot, perception,
+language model, geometric planner, or independently validated safety model.
+Results describe behavior under the rules implemented here.
 
 ## What is included
 
-Each scenario starts from a freshly reset modeled state. A nominal assembly
-recipe is perturbed to create a candidate plan, then evaluated by one of five
-methods:
+Each scenario starts from a reset state. A candidate plan is generated from a
+nominal recipe, with an error injected in some scenarios. The main experiment
+compares five methods:
 
 - `rule_script`: follows a fixed recipe and does not recover from errors.
 - `classical_global`: rebuilds a recipe from the complete modeled state; this
@@ -30,18 +27,15 @@ methods:
 - `vcrisp`: uses a structured candidate, a compiler, pre-dispatch checks,
   executor event records, and verified suffix repair.
 
-The component ablation reuses the same 4,800 scenario identifiers and compares
-four configurations: `structured_no_verify`, initial checking only
-(`checker_only`), runtime suffix verification only (`repair_only`), and the
-full `vcrisp` configuration. The ablation is a timing comparison within the
-same finite-state semantics; it is not a comparison of independently
-validated safety models.
+Candidate errors cover wrong tools or ordering, omitted inspection or tool
+changes, and unknown targets. Scenarios may also schedule one of six modeled
+disturbances: grasp failure, pose shift, station blockage, tool unavailability,
+inspection rejection, or low confidence.
 
-Candidate-plan errors include a wrong tool, wrong order, omitted inspection,
-unknown target, and omitted tool change. A scenario can also contain one
-scheduled disturbance: grasp failure, pose shift, station blockage, tool
-unavailability, inspection rejection, or low confidence. These are named
-finite-state conditions, not physical faults or sensor observations.
+The component ablation compares `structured_no_verify`, initial checking only
+(`checker_only`), runtime suffix verification only (`repair_only`), and full
+`vcrisp` on the same 4,800 scenarios. The checker and dispatch guard share the
+same action rules, so the ablation does not test an independent verifier.
 
 ## Requirements
 
@@ -57,9 +51,8 @@ python3 -m pip install -r requirements.txt
 
 ## Reproduce the benchmark
 
-Run the following from the repository root. `run_experiments.py` replaces the
-authoritative contents of `results/`, so do not combine outputs from separate
-runs.
+Run these commands from the repository root. The experiment command replaces
+files in `results/`; keep a copy elsewhere if you need to retain a previous run.
 
 ```bash
 python3 -m py_compile \
@@ -76,55 +69,47 @@ python3 figures/make_figure1_composite.py
 python3 figures/make_publication_figures.py
 ```
 
-The main experiment contains 4,800 matched scenarios and 24,000 method-level
-records. It covers 20 random seeds, 10 reset episodes per stratum, three recipe
-sizes, two candidate-error profiles without disturbances, six disturbance
-types, and five methods. The sensitivity experiment contains 2,400 matched
-scenarios and 12,000 records, and sweeps candidate-error rates of 0.05, 0.10,
+The main run has 4,800 matched scenarios and 24,000 method records. It uses
+20 seeds, 10 reset episodes per stratum, three recipe sizes, two candidate-error
+profiles without disturbances, and six disturbance types. The component
+ablation adds 19,200 records for those 4,800 scenarios. The sensitivity run has
+2,400 scenarios and 12,000 records across candidate-error rates of 0.05, 0.10,
 0.20, and 0.30.
-
-The component ablation contains 4,800 matched scenarios and 19,200 records
-(four configurations per scenario). Its summary and paired bootstrap tables
-are `results/analysis/table_component_ablation.csv` and
-`results/analysis/component_ablation_bootstrap.csv`.
 
 ## Read the outputs
 
-`results/` is the machine-readable record of a completed run. It includes raw
-episode records, source hashes, analysis tables, paired bootstrap contrasts, an
-integrity audit, and a qualitative trace. The main summary tables are:
+The raw episode files are `results/episodes_main.csv`,
+`results/episodes_component_ablation.csv`, and `results/episodes_sensitivity.csv`.
+The `results/analysis/` directory contains summary tables, paired bootstrap
+contrasts, and a qualitative trace. Useful starting points are:
 
-- `results/analysis/table_overall.csv`
-- `results/analysis/table_robustness.csv`
-- `results/analysis/table_runtime_scalability.csv`
+- `table_overall.csv`: main comparison.
+- `table_component_ablation.csv` and `component_ablation_bootstrap.csv`: component comparison.
+- `table_robustness.csv`: outcomes by disturbance.
+- `table_sensitivity.csv`: outcomes by candidate-error rate.
+- `table_runtime_scalability.csv`: local timing and virtual makespan by recipe size.
+- `integrity_audit.json`: pairing, duplicate, and source-hash checks.
 
-Before using a run, check
-`results/analysis/integrity_audit.json`. It should report complete matched
-records, no duplicates, and no source-hash mismatches.
+Check that `integrity_audit.json` reports a passing audit before using a run.
 
 Virtual makespan fields use abstract action-cost units, not manufacturing time.
 The historical fields named `planning_cpu_ms` and `verification_cpu_ms` record
-local elapsed time from `time.perf_counter()`, not CPU time. Similarly, `disturbance_detected` means the
-executor reached the scheduled state and recorded a reason code; it is not a
-sensor-detection result. `human_intervention` is a simulated escalation flag
-when recovery does not occur, not a measurement of human work.
+local elapsed time from `time.perf_counter()`, not CPU time.
+`disturbance_detected` records a scheduled state-machine event, not sensor
+detection. `human_intervention` is a simulated escalation flag, not a measure
+of human work.
 
-`figures/publication/` contains the publication figure exports. Figure 1 is an
-abstract three-dimensional workstation-state illustration used to explain the
-event flow; it is not robot-simulation or physical-robot evidence. The PDF and
-SVG figure files, with their JSON quality records, are the archival versions.
+`figures/publication/` contains the PDF and SVG figure exports and their JSON
+quality records. Figure 1 is an illustrative 3D view of an abstract cell, not a
+robot simulation or physical experiment.
 
 ## Citation and releases
 
-Use `CITATION.cff` when citing this repository. The immutable `v1.0.1` release
-is archived by Zenodo at
-[10.5281/zenodo.23766150](https://doi.org/10.5281/zenodo.23766150), but it does
-not contain the component-ablation results. Version `v1.0.2` is archived at
-[10.5281/zenodo.23768078](https://doi.org/10.5281/zenodo.23768078); use this
-version DOI to identify the results in the current release. The
-[concept DOI](https://doi.org/10.5281/zenodo.23766149) resolves to the latest
-Zenodo version. The version DOI was added to this branch after the immutable
-release was archived.
+Use `CITATION.cff` to cite the repository. The archive containing the component
+ablation is [v1.0.2, DOI 10.5281/zenodo.23768078](https://doi.org/10.5281/zenodo.23768078).
+The earlier [v1.0.1 archive](https://doi.org/10.5281/zenodo.23766150) does not
+include that ablation. The [concept DOI](https://doi.org/10.5281/zenodo.23766149)
+points to the latest Zenodo version.
 
 To create a checksum manifest after a full rerun and figure regeneration:
 
@@ -140,9 +125,3 @@ authoritative results, publication figures, licenses, and release metadata.
 The source code is available under the [Apache-2.0 license](LICENSE). Synthetic
 benchmark records in `results/` and publication figure exports are available
 under [CC BY 4.0](LICENSE-DATA).
-
-These licenses govern reuse; they do not expand the scope of the experimental
-evidence. The repository does not support claims about factory data, physical
-robots, real LLM or VLM performance, geometric feasibility, collision
-avoidance, independent safety verification, safety certification, or deployment
-readiness.

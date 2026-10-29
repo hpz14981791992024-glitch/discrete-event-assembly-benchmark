@@ -1,19 +1,18 @@
-# Release Status and Next-Release Checklist
+# Release Status and Checklist
 
-This repository has an immutable public release: `v1.0.1`, archived by Zenodo
-at [10.5281/zenodo.23766150](https://doi.org/10.5281/zenodo.23766150). The
-[concept DOI](https://doi.org/10.5281/zenodo.23766149) resolves to the latest
-Zenodo version. Do not move, delete, or recreate the `v1.0.1` tag: its archive
-and version DOI refer to the files fixed at that tag.
+The current archived release is
+[`v1.0.2`](https://doi.org/10.5281/zenodo.23768078), which includes the main,
+sensitivity, and component-ablation records. The earlier
+[`v1.0.1`](https://doi.org/10.5281/zenodo.23766150) does not include the
+component ablation. The [concept DOI](https://doi.org/10.5281/zenodo.23766149)
+points to the latest Zenodo version.
 
 The archive contains code, synthetic results, publication figures, metadata,
-licenses, and checksums. It does not contain the unpublished `manuscript/`
-directory, `.venv/`, `results_smoke/`, `results_pre_rerun_20261028/`, or LaTeX
-build intermediates. Archival does not turn this finite-state benchmark into
-evidence about a physical robot, LLM/VLM, geometric planner, or
-safety-certified system.
+licenses, and checksums. The unpublished `manuscript/`, local environment,
+scratch results, and LaTeX build files are excluded. Do not move, delete, or
+recreate an archived tag.
 
-## v1.0.2 release
+## Before the next release
 
 1. Confirm the intended public files and leave the unpublished `manuscript/`
    directory out of the release.
@@ -28,13 +27,8 @@ safety-certified system.
    version DOI to the repository documentation, citation metadata, and the
    local manuscript.
 
-Version `v1.0.2` contains the regenerated main, sensitivity, and matched
-component-ablation records. Zenodo published it at
-[10.5281/zenodo.23768078](https://doi.org/10.5281/zenodo.23768078); its landing
-page confirms the version, creators, repository link, and license description.
-The DOI was added to the main branch after archival, so the frozen tag's
-metadata cannot contain its own DOI. Neither release tag should be moved,
-deleted, or recreated.
+The `v1.0.2` DOI was added to the main branch after archival; its frozen tag
+therefore does not contain the DOI in `CITATION.cff`.
 
 ## Local verification
 
