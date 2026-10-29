@@ -74,7 +74,7 @@ python3 figures/make_publication_figures.py
 python3 make_release_manifest.py
 ```
 
-`SHA256SUMS` 覆盖可执行源代码、权威结果、正式图件、许可证和发布元数据，不包含仅在本地保留的未公开论文。
+`SHA256SUMS` 覆盖可执行源代码、权威结果、正式图件、许可证和发布元数据。
 
 ## 许可证
 
